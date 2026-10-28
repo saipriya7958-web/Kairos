@@ -1,0 +1,2288 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kairos - Emotional Regulation & Mindful Listening</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- QRCode.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Cinzel:wght@500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Fraunces', 'Cinzel', 'serif']
+                    },
+                    colors: {
+                        kairos: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background:
+                radial-gradient(1100px 520px at 12% -6%, rgba(56, 189, 248, 0.16), transparent 60%),
+                radial-gradient(900px 480px at 88% 4%, rgba(129, 140, 248, 0.18), transparent 60%),
+                radial-gradient(1000px 620px at 50% 108%, rgba(45, 212, 191, 0.12), transparent 62%),
+                linear-gradient(160deg, #fbfdff 0%, #f3f6fb 42%, #e9edf5 78%, #e2e8f2 100%);
+            background-attachment: fixed;
+            color: #1e293b;
+            overflow-x: hidden;
+        }
+
+        /* Atelier aurora washes & film grain (ambient only — yin-yang & dice art untouched) */
+        .aurora {
+            position: fixed;
+            border-radius: 9999px;
+            filter: blur(90px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .aurora-a {
+            width: 44rem; height: 44rem;
+            top: -14rem; left: -12rem;
+            background: radial-gradient(circle at 40% 40%, rgba(56,189,248,0.20), transparent 65%);
+            animation: auroraDrift 26s ease-in-out infinite alternate;
+        }
+        .aurora-b {
+            width: 40rem; height: 40rem;
+            top: -10rem; right: -10rem;
+            background: radial-gradient(circle at 60% 40%, rgba(167,139,250,0.20), transparent 65%);
+            animation: auroraDrift 32s ease-in-out infinite alternate-reverse;
+        }
+        .aurora-c {
+            width: 46rem; height: 46rem;
+            bottom: -18rem; left: 30%;
+            background: radial-gradient(circle at 50% 50%, rgba(45,212,191,0.14), transparent 65%);
+            animation: auroraDrift 38s ease-in-out infinite alternate;
+        }
+        @keyframes auroraDrift {
+            from { transform: translate3d(0, 0, 0) scale(1); }
+            to { transform: translate3d(3rem, 2.2rem, 0) scale(1.08); }
+        }
+        .grain::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.7'/%3E%3C/svg%3E");
+        }
+
+        /* Editorial & gallery treatments for the introduction */
+        .display-gradient {
+            background: linear-gradient(100deg, #0c4a6e 0%, #0369a1 30%, #4f46e5 62%, #0f766e 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .intro-eyebrow {
+            letter-spacing: 0.32em;
+        }
+        .drop-cap::first-letter {
+            font-family: 'Fraunces', serif;
+            font-size: 2.9em;
+            line-height: 0.9;
+            float: left;
+            padding-right: 0.12em;
+            font-weight: 500;
+            color: #0369a1;
+        }
+        .hairline-lotus {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+        }
+        .hairline-lotus::before, .hairline-lotus::after {
+            content: "";
+            height: 1px;
+            flex: 1;
+            background: linear-gradient(90deg, transparent, rgba(3,105,161,0.4), transparent);
+        }
+        .gallery-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .gallery-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding-top: 3px;
+            background: linear-gradient(120deg, rgba(56,189,248,0.7), rgba(129,140,248,0.7), rgba(45,212,191,0.7));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .gallery-card:hover::after { opacity: 1; }
+        .stream-card { transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s ease; }
+        .stream-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -18px rgba(15, 23, 42, 0.25); }
+        .btn-sanctuary {
+            background: linear-gradient(120deg, #0284c7 0%, #4f46e5 55%, #0d9488 130%);
+            background-size: 160% 160%;
+            transition: background-position 0.6s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 12px 30px -10px rgba(2, 132, 199, 0.55);
+        }
+        .btn-sanctuary:hover { background-position: 90% 50%; transform: translateY(-2px); }
+        .numeral-chip { font-variant-numeric: tabular-nums; }
+
+        /* Light-Theme Glassmorphism Styles */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.03);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.95);
+            border-color: rgba(14, 165, 233, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px 0 rgba(14, 165, 233, 0.1);
+        }
+
+        /* Slide Transitions */
+        .slide-container {
+            position: relative;
+            width: 100%;
+            min-height: calc(100vh - 160px);
+            overflow: hidden;
+        }
+
+        .slide-page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(60px);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .slide-page.active {
+            position: relative;
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+
+        /* Taoist Yin Yang Ambient Rotation */
+        @keyframes subtleRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .yin-yang-bg {
+            animation: subtleRotate 45s linear infinite;
+        }
+
+        /* Rolling Blue Dice Animation */
+        @keyframes diceRoll {
+            0% { transform: rotate(0deg) scale(0.8); }
+            50% { transform: rotate(180deg) scale(1.15); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .yin-yang-spin-fast {
+            animation: subtleRotate 2.4s linear infinite;
+        }
+
+        @keyframes overlayFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        #pageTransitionOverlay:not(.hidden) {
+            animation: overlayFadeIn 0.3s ease-out;
+        }
+
+        /* Music button pulse while playing */
+        @keyframes musicPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.35); }
+            50% { box-shadow: 0 0 0 6px rgba(14, 165, 233, 0); }
+        }
+
+        .music-playing {
+            animation: musicPulse 2.4s ease-in-out infinite;
+            border-color: rgba(14, 165, 233, 0.6) !important;
+        }
+
+        .rolling-dice-icon {
+            animation: diceRoll 1.2s ease-in-out infinite;
+        }
+
+        /* Breathing Animation */
+        @keyframes breatheScale {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            21.05% { transform: scale(1.35); opacity: 1; }
+            57.89% { transform: scale(1.35); opacity: 0.9; }
+        }
+
+        .breathe-circle {
+            animation: breatheScale 19s ease-in-out infinite;
+            animation-play-state: paused;
+        }
+
+        .breathe-circle.active {
+            animation-play-state: running;
+        }
+
+        /* Print / Save as PDF: only the summary card */
+        @media print {
+            body * { visibility: hidden !important; }
+            #synthesisOutput, #synthesisOutput * { visibility: visible !important; }
+            #synthesisOutput { position: fixed; top: 0; left: 0; width: 100%; border: none; box-shadow: none; }
+        }
+
+        /* 3-Tier Arhat Wheel segments */
+        .wheel-seg { cursor: pointer; stroke: #ffffff; stroke-width: 1.5; transition: fill-opacity 0.2s; }
+        .wheel-seg.t1 { fill-opacity: 0.38; }
+        .wheel-seg.t2 { fill-opacity: 0.24; }
+        .wheel-seg.t3 { fill-opacity: 0.12; }
+        .wheel-seg:hover { fill-opacity: 0.55; }
+        .wheel-seg.sel { fill-opacity: 0.9; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(241, 245, 249, 0.8);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(14, 165, 233, 0.3);
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(14, 165, 233, 0.6);
+        }
+    </style>
+</head>
+<body class="grain min-h-screen flex flex-col justify-between relative selection:bg-sky-500 selection:text-white">
+
+    <!-- Ambient aurora washes (pure atmosphere; yin-yang artwork below is untouched) -->
+    <div class="aurora aurora-a" aria-hidden="true"></div>
+    <div class="aurora aurora-b" aria-hidden="true"></div>
+    <div class="aurora aurora-c" aria-hidden="true"></div>
+
+    <!-- Ambient Rotating Taoist Yin-Yang Background -->
+    <div class="fixed inset-0 pointer-events-none z-0 flex items-center justify-center opacity-10 overflow-hidden">
+        <svg class="w-[850px] h-[850px] text-sky-900 yin-yang-bg" viewBox="0 0 100 100" fill="currentColor">
+            <circle cx="50" cy="50" r="48" stroke="currentColor" stroke-width="2" fill="none" />
+            <path d="M 50 2 A 48 48 0 0 1 50 98 A 24 24 0 0 1 50 50 A 24 24 0 0 0 50 2 Z" fill="currentColor" />
+            <circle cx="50" cy="26" r="6" fill="#f8fafc" />
+            <circle cx="50" cy="74" r="6" fill="currentColor" />
+        </svg>
+    </div>
+
+    <!-- PAGE TRANSITION OVERLAY MODAL -->
+    <div id="pageTransitionOverlay" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-md hidden flex flex-col items-center justify-center p-6 text-center transition-opacity duration-300">
+        <div class="glass-card p-8 rounded-3xl max-w-md w-full border-sky-300 shadow-2xl flex flex-col items-center space-y-5">
+            <div class="relative w-24 h-24 flex items-center justify-center">
+                <!-- Outer Rotating Blue Yin Yang -->
+                <svg class="w-24 h-24 text-sky-500 yin-yang-spin-fast absolute" viewBox="0 0 100 100" fill="currentColor">
+                    <circle cx="50" cy="50" r="48" stroke="currentColor" stroke-width="2" fill="none" />
+                    <path d="M 50 2 A 48 48 0 0 1 50 98 A 24 24 0 0 1 50 50 A 24 24 0 0 0 50 2 Z" fill="currentColor" />
+                    <circle cx="50" cy="26" r="6" fill="#ffffff" />
+                    <circle cx="50" cy="74" r="6" fill="currentColor" />
+                </svg>
+
+                <!-- Inner Rolling Blue Dice Box with Three Dots -->
+                <div class="rolling-dice-icon relative z-10 w-12 h-12 bg-gradient-to-tr from-sky-600 to-indigo-600 rounded-xl shadow-lg border border-white/60 flex items-center justify-center p-2">
+                    <svg viewBox="0 0 24 24" class="w-full h-full text-white" fill="currentColor">
+                        <circle cx="6" cy="6" r="2" />
+                        <circle cx="12" cy="12" r="2" />
+                        <circle cx="18" cy="18" r="2" />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <span class="text-xs font-bold uppercase tracking-widest text-sky-600">Daoist Insight & Fun Fact</span>
+                <p id="transitionFunFact" class="text-sm font-medium text-slate-800 italic leading-relaxed">
+                    "Flowing water never stales; the door hinge never gets worm-eaten because it exercises."
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER & NAV -->
+    <header class="sticky top-0 z-40 glass-panel border-b border-slate-200/80 px-4 md:px-8 py-3 flex flex-col gap-2">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="navigateToPage('introPage')">
+                <!-- Blue Dice Box Icon with 3 White Dots -->
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 via-sky-600 to-blue-700 flex items-center justify-center shadow-lg shadow-sky-500/30 p-2 ring-1 ring-white/50 ring-inset" style="box-shadow: inset 0 -3px 0 rgba(12,74,110,0.35), inset 0 2px 0 rgba(255,255,255,0.35), 0 6px 14px rgba(14,165,233,0.25);">
+                    <svg viewBox="0 0 24 24" class="w-full h-full text-white drop-shadow-sm" fill="currentColor">
+                        <circle cx="6" cy="6" r="2.3" />
+                        <circle cx="12" cy="12" r="2.3" />
+                        <circle cx="18" cy="18" r="2.3" />
+                    </svg>
+                </div>
+                <h1 class="font-serif text-2xl font-bold tracking-wider bg-gradient-to-r from-sky-600 via-indigo-700 to-slate-900 bg-clip-text text-transparent">
+                    Kairos
+                </h1>
+                <span class="hidden md:flex flex-col leading-none border-l border-slate-300/80 pl-3" title="Designed by Saipriya Vallabi">
+                    <span class="text-[9px] font-semibold uppercase tracking-[0.3em] text-slate-400">Designed by</span>
+                    <span class="font-serif text-[13px] font-semibold uppercase tracking-[0.18em] text-slate-700">Saipriya Vallabi</span>
+                </span>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button id="musicToggleBtn" onclick="openMusicPanel()" title="Open the Raaga music library" class="px-3.5 py-2 rounded-xl glass-card flex items-center gap-2 text-xs md:text-sm text-slate-700 hover:text-sky-600 hover:border-sky-500/40 transition">
+                    <span id="musicIconPlay"><i data-lucide="music" class="w-4 h-4 text-sky-500"></i></span>
+                    <span id="musicIconPause" class="hidden"><i data-lucide="pause" class="w-4 h-4 text-sky-600"></i></span>
+                    <span id="musicLabel" class="hidden sm:inline">Raaga Music</span>
+                </button>
+
+                <button onclick="openModal('qrModal')" class="px-3.5 py-2 rounded-xl glass-card flex items-center gap-2 text-xs md:text-sm text-slate-700 hover:text-sky-600 hover:border-sky-500/40 transition">
+                    <i data-lucide="qr-code" class="w-4 h-4 text-sky-500"></i>
+                    <span class="hidden sm:inline">Share QR</span>
+                </button>
+
+                <button id="homeNavBtn" onclick="navigateToPage('introPage')" class="hidden px-3.5 py-2 rounded-xl glass-card flex items-center gap-2 text-xs md:text-sm text-slate-700 hover:text-sky-600 transition">
+                    <i data-lucide="home" class="w-4 h-4 text-slate-500"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- TOP BANNER: UNLIMITED DAOIST WISDOM & INTERESTING FACTS -->
+        <div class="bg-gradient-to-r from-sky-500/10 via-indigo-500/10 to-sky-500/10 border border-sky-200/80 rounded-xl px-4 py-1.5 flex items-center justify-between gap-3 text-xs text-slate-700 shadow-inner">
+            <div class="flex items-center gap-2 shrink-0">
+                <svg class="w-4 h-4 text-sky-600 yin-yang-bg" viewBox="0 0 100 100" fill="currentColor">
+                    <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width="6" />
+                    <path d="M 50 2 A 48 48 0 0 1 50 98 A 24 24 0 0 1 50 50 A 24 24 0 0 0 50 2 Z" />
+                    <circle cx="50" cy="26" r="6" fill="#ffffff" />
+                    <circle cx="50" cy="74" r="6" fill="currentColor" />
+                </svg>
+                <span class="font-bold text-sky-700 uppercase tracking-wide text-[10px]">Daoist Wisdom & Fact</span>
+            </div>
+
+            <div id="daoistWisdomBannerText" onclick="toggleDaoistBanner()" title="Click to expand" class="truncate font-serif italic text-slate-800 text-center flex-1 cursor-pointer">
+                "Nature does not hurry, yet everything is accomplished." — Lao Tzu
+            </div>
+
+            <div class="flex items-center gap-1 shrink-0">
+                <button onclick="prevDaoistWisdom()" class="p-1 rounded hover:bg-slate-200/60 text-slate-600">
+                    <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
+                </button>
+                <button onclick="nextDaoistWisdom()" class="p-1 rounded hover:bg-slate-200/60 text-slate-600">
+                    <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                </button>
+                <button id="bannerExpandBtn" onclick="toggleDaoistBanner()" title="Expand / collapse" class="p-1 rounded hover:bg-slate-200/60 text-slate-600 transition-transform">
+                    <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-1 z-10 max-w-7xl w-full mx-auto px-4 md:px-8 py-6 relative">
+        <div class="slide-container">
+
+            <!-- PAGE -1: INTRODUCTION — THE ASPIRATION OF THIS SPACE -->
+            <section id="introPage" class="slide-page active flex flex-col items-center text-center space-y-10 md:space-y-12 py-8 md:py-14">
+                <div class="inline-flex items-center gap-2.5 px-5 py-2 rounded-full glass-card text-sky-700 text-[11px] md:text-xs font-semibold shadow-sm">
+                    <i data-lucide="sunrise" class="w-4 h-4 text-sky-500"></i>
+                    <span class="intro-eyebrow uppercase">An invitation, before you begin</span>
+                </div>
+
+                <div class="max-w-3xl space-y-6">
+                    <p class="font-serif italic text-lg md:text-xl text-slate-500">Kairos — the ancient word for the opportune moment, the right time to see clearly.</p>
+                    <h2 class="font-serif text-4xl md:text-6xl font-medium tracking-tight text-slate-900 leading-[1.08]">
+                        Come home to yourself,<br><span class="display-gradient font-semibold">even in the middle of the storm.</span>
+                    </h2>
+                    <p class="font-serif italic text-sm md:text-base text-slate-500">Designed by <span class="not-italic font-semibold uppercase tracking-[0.22em] text-slate-700">Saipriya Vallabi</span></p>
+                </div>
+
+                <div class="max-w-3xl text-left space-y-5 glass-panel rounded-3xl p-6 md:p-10 shadow-sm">
+                    <p class="drop-cap text-slate-700 text-[15px] md:text-base leading-relaxed">
+                        The aspiration of this space is simple and tender: to bring you into a closer, kinder awareness of your own emotions — especially in moments of crisis, breakdown, or uncertainty, when feelings arrive like weather you never invited. Here, you are invited to slow down and to see your own mind closely and freshly, exactly as it is, without judgment and without hurry.
+                    </p>
+                    <p class="text-slate-600 text-sm md:text-[15px] leading-relaxed">
+                        <span class="font-serif font-semibold text-slate-800">Listen to Yourself</span>, the first path, is a guided self-inquiry that helps you name what triggered you, sense whether you have the energy to look inward, give precise words to what you feel, uncover the unmet needs beneath those feelings, and gently reframe the story you are telling yourself — until it gathers into a holistic summary card you can keep.
+                    </p>
+                    <p class="text-slate-600 text-sm md:text-[15px] leading-relaxed">
+                        <span class="font-serif font-semibold text-slate-800">The Listener's Path</span>, the second path, turns the gaze outward. It prepares you to sit beside another sentient being and truly hear them — to understand them more deeply, to move one step closer to their inner world and one step away from your own narratives, so that your presence itself becomes a refuge.
+                    </p>
+                </div>
+
+                <div class="w-full max-w-5xl space-y-5 text-left">
+                    <div class="hairline-lotus">
+                        <span class="inline-flex items-center justify-center gap-2 text-[11px] font-bold uppercase tracking-[0.28em] text-sky-700 text-center leading-relaxed"><i data-lucide="compass" class="w-4 h-4 shrink-0"></i> What lives inside this sanctuary</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="glass-card gallery-card p-5 rounded-2xl space-y-2">
+                            <div class="w-10 h-10 rounded-xl bg-sky-100 border border-sky-200 flex items-center justify-center text-sky-600"><i data-lucide="footprints" class="w-5 h-5"></i></div>
+                            <h3 class="font-serif font-semibold text-slate-900">Six-step self-inquiry</h3>
+                            <p class="text-[13px] text-slate-600 leading-relaxed">Move from trigger tagging and emotional readiness, through feelings and reframing, to a complete synthesis — one gentle step at a time.</p>
+                        </div>
+                        <div class="glass-card gallery-card p-5 rounded-2xl space-y-2">
+                            <div class="w-10 h-10 rounded-xl bg-violet-100 border border-violet-200 flex items-center justify-center text-violet-600"><i data-lucide="loader-pinwheel" class="w-5 h-5"></i></div>
+                            <h3 class="font-serif font-semibold text-slate-900">3-tier Arhat emotion wheel</h3>
+                            <p class="text-[13px] text-slate-600 leading-relaxed">Choose directly from the wheel — six core emotions opening into secondary and specific feelings — each revealing its underlying NVC needs.</p>
+                        </div>
+                        <div class="glass-card gallery-card p-5 rounded-2xl space-y-2">
+                            <div class="w-10 h-10 rounded-xl bg-teal-100 border border-teal-200 flex items-center justify-center text-teal-600"><i data-lucide="library" class="w-5 h-5"></i></div>
+                            <h3 class="font-serif font-semibold text-slate-900">146 searchable NVC feelings</h3>
+                            <p class="text-[13px] text-slate-600 leading-relaxed">Search, filter, and select from the full Nonviolent Communication feelings vocabulary — or add your own words when none fit.</p>
+                        </div>
+                        <div class="glass-card gallery-card p-5 rounded-2xl space-y-2">
+                            <div class="w-10 h-10 rounded-xl bg-indigo-100 border border-indigo-200 flex items-center justify-center text-indigo-600"><i data-lucide="heart-handshake" class="w-5 h-5"></i></div>
+                            <h3 class="font-serif font-semibold text-slate-900">Listener's preparation suite</h3>
+                            <p class="text-[13px] text-slate-600 leading-relaxed">Capture context, tune into the other's emotions, choose a Bodhisattva listening stance, breathe together in 4-7-8 rhythm, and receive tailored prompts.</p>
+                        </div>
+                        <div class="glass-card gallery-card p-5 rounded-2xl space-y-2">
+                            <div class="w-10 h-10 rounded-xl bg-amber-100 border border-amber-200 flex items-center justify-center text-amber-600"><i data-lucide="audio-lines" class="w-5 h-5"></i></div>
+                            <h3 class="font-serif font-semibold text-slate-900">50 real raaga recordings</h3>
+                            <p class="text-[13px] text-slate-600 leading-relaxed">Soothe the nervous system with authentic Indian classical performances by legendary masters — searchable by raag, artist, and instrument.</p>
+                        </div>
+                        <div class="glass-card gallery-card p-5 rounded-2xl space-y-2">
+                            <div class="w-10 h-10 rounded-xl bg-rose-100 border border-rose-200 flex items-center justify-center text-rose-600"><i data-lucide="scroll-text" class="w-5 h-5"></i></div>
+                            <h3 class="font-serif font-semibold text-slate-900">Wisdom, breath & keepsakes</h3>
+                            <p class="text-[13px] text-slate-600 leading-relaxed">A rotating banner of Daoist wisdom, a guided breathing circle, a copyable and printable summary card, and a QR code to share the sanctuary.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full max-w-5xl space-y-5 text-left">
+                    <div class="hairline-lotus">
+                        <span class="inline-flex items-center justify-center gap-2 text-[11px] font-bold uppercase tracking-[0.28em] text-indigo-700 text-center leading-relaxed"><i data-lucide="sprout" class="w-4 h-4 shrink-0"></i> Four ancient streams, one grounded self</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="glass-card stream-card p-5 rounded-2xl border-t-4 border-t-sky-500 space-y-2">
+                            <p class="text-[10px] font-bold uppercase tracking-[0.24em] text-sky-600">Taoism</p>
+                            <h3 class="font-serif font-semibold text-slate-900">Flow, not force</h3>
+                            <p class="text-[13px] text-slate-600 leading-relaxed">Wu wei — effortless action — teaches you to meet friction softly, like water around stone, instead of bracing against your own feelings.</p>
+                        </div>
+                        <div class="glass-card stream-card p-5 rounded-2xl border-t-4 border-t-amber-500 space-y-2">
+                            <p class="text-[10px] font-bold uppercase tracking-[0.24em] text-amber-600">Indian Raagas</p>
+                            <h3 class="font-serif font-semibold text-slate-900">Music that steadies</h3>
+                            <p class="text-[13px] text-slate-600 leading-relaxed">Each raaga carries a mood, an hour, a season. These living melodies settle the body so the mind can look at itself with fresh eyes.</p>
+                        </div>
+                        <div class="glass-card stream-card p-5 rounded-2xl border-t-4 border-t-emerald-500 space-y-2">
+                            <p class="text-[10px] font-bold uppercase tracking-[0.24em] text-emerald-600">Buddhist Ideals</p>
+                            <h3 class="font-serif font-semibold text-slate-900">Deep listening</h3>
+                            <p class="text-[13px] text-slate-600 leading-relaxed">Compassion and the Bodhisattva stance hold suffering with reverence — your own first, then another's — without rushing to fix what hurts.</p>
+                        </div>
+                        <div class="glass-card stream-card p-5 rounded-2xl border-t-4 border-t-violet-500 space-y-2">
+                            <p class="text-[10px] font-bold uppercase tracking-[0.24em] text-violet-600">NVC Framework</p>
+                            <h3 class="font-serif font-semibold text-slate-900">Language that grounds</h3>
+                            <p class="text-[13px] text-slate-600 leading-relaxed">Observations without judgment, named feelings, honored needs, gentle requests — words that reveal your true self at moments of friction.</p>
+                        </div>
+                    </div>
+                    <p class="text-center font-serif italic text-slate-600 text-[15px] md:text-base leading-relaxed max-w-3xl mx-auto pt-1">
+                        Together, these four streams show you your own true self in a much more grounded way at moments of friction — not by fixing you, but by holding you steady while you see clearly.
+                    </p>
+                </div>
+
+                <div class="flex flex-col items-center gap-3 pt-1">
+                    <button onclick="navigateToPage('welcomePage')" class="btn-sanctuary px-10 py-4 rounded-2xl text-white font-semibold text-sm flex items-center gap-2.5">
+                        <span>Enter Kairos — Begin the Journey</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                    <p class="text-[11px] uppercase tracking-[0.24em] text-slate-400 font-semibold">Take a breath · There is no hurry here</p>
+                </div>
+            </section>
+
+            <!-- PAGE 0: WELCOME SCREEN -->
+            <section id="welcomePage" class="slide-page flex flex-col items-center text-center space-y-8 py-8 md:py-12">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card border-sky-200 text-sky-700 text-xs md:text-sm tracking-wide font-medium shadow-sm">
+                    <i data-lucide="sparkles" class="w-4 h-4 text-sky-500"></i>
+                    Taoist & Nonviolent Communication (NVC) Emotional Sanctuary
+                </div>
+
+                <div class="max-w-3xl space-y-4">
+                    <h2 class="font-serif text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight">
+                        Navigate Emotions with <span class="bg-gradient-to-r from-sky-600 via-indigo-600 to-slate-800 bg-clip-text text-transparent">Awareness & Purpose</span>
+                    </h2>
+                    <p class="text-slate-600 text-base md:text-lg leading-relaxed font-light">
+                        Kairos creates an opportunistic moment to slow down. Unpack your inner weather through the NVC framework or step into a sacred, centered space to hold deep space for someone else.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl text-left my-4">
+                    <div class="glass-card p-6 rounded-3xl border-t-4 border-t-sky-500 flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="w-12 h-12 rounded-2xl bg-sky-100 border border-sky-200 flex items-center justify-center mb-4 text-sky-600">
+                                <!-- Dharmachakra (Wheel of Dharma) -->
+                                <svg viewBox="0 0 24 24" class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-label="Dharma wheel">
+                                    <circle cx="12" cy="12" r="8.5" />
+                                    <circle cx="12" cy="12" r="6.5" />
+                                    <circle cx="12" cy="12" r="1.8" fill="currentColor" />
+                                    <path d="M12 3.5v6.7M12 13.8v6.7M3.5 12h6.7M13.8 12h6.7M6 6l4.7 4.7M13.3 13.3L18 18M18 6l-4.7 4.7M10.7 13.3L6 18" />
+                                    <path d="M12 1.5v2M12 20.5v2M1.5 12h2M20.5 12h2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M19.4 4.6L18 6M6 18l-1.4 1.4" stroke-width="2.4" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2 font-serif">Path 1: Listen to Yourself</h3>
+                            <p class="text-sm text-slate-600">Interactive step-by-step self-inquiry: Map triggers, evaluate readiness, explore the 3-tier Arhat wheel & 130+ feelings, reframe story, and compile summary.</p>
+                        </div>
+                        <button onclick="navigateToPath1Step(1)" class="w-full py-3 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-sm transition shadow-md shadow-sky-500/20 flex items-center justify-center gap-2">
+                            <span>Begin Self-Inquiry (Step 1)</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-3xl border-t-4 border-t-indigo-500 flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-100 border border-indigo-200 flex items-center justify-center mb-4 text-indigo-600">
+                                <!-- Lotus (Padma) -->
+                                <svg viewBox="0 0 24 24" class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-label="Lotus">
+                                    <path d="M12 19c-2.6-2.8-3.2-8.2 0-13 3.2 4.8 2.6 10.2 0 13z" />
+                                    <path d="M12 19c-3.8-.4-7-3.4-7.4-8.4 3.4.6 6 3.6 7.4 8.4z" />
+                                    <path d="M12 19c3.8-.4 7-3.4 7.4-8.4-3.4.6-6 3.6-7.4 8.4z" />
+                                    <path d="M12 19c-4.4 1-8.4-.4-10-3.6 3-.8 6.6.4 10 3.6z" />
+                                    <path d="M12 19c4.4 1 8.4-.4 10-3.6-3-.8-6.6.4-10 3.6z" />
+                                    <path d="M7 21.5h10" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2 font-serif">Path 2: Listener for Someone Else</h3>
+                            <p class="text-sm text-slate-600">Professional multi-step listening suite: context capture, emotion tuning, Bodhisattva stance selection, breathing, and 10 tailored prompts.</p>
+                        </div>
+                        <button onclick="navigateToPath2Step(1)" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition shadow-md shadow-indigo-500/20 flex items-center justify-center gap-2">
+                            <span>Begin Listener Prep (Step 1)</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- PATH 1 MULTI-STEP PAGES -->
+
+            <!-- PATH 1 - STEP 1: TRIGGER TAGGING & NARRATIVE -->
+            <section id="path1Step1" class="slide-page space-y-8 py-4">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+                    <div>
+                        <span class="text-xs font-semibold text-sky-600 uppercase tracking-widest">Path 1 • Step 1 of 6</span>
+                        <h2 class="font-serif text-3xl font-bold text-slate-900">Trigger State & Context Narrative</h2>
+                    </div>
+                    <button onclick="navigateToPage('welcomePage')" class="self-start md:self-auto px-4 py-2 rounded-xl glass-card text-xs text-slate-600 hover:text-slate-900 flex items-center gap-2">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Home
+                    </button>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-3xl space-y-6 max-w-3xl mx-auto">
+                    <h3 class="text-lg font-bold text-slate-900 flex items-center gap-3">
+                        <span class="w-7 h-7 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center text-xs font-bold">1</span>
+                        Identify Primary Triggers
+                    </h3>
+                    <p class="text-sm text-slate-600">Tap every trigger that is activating your current emotional state, or add your own:</p>
+                    <div id="triggerTags" class="flex flex-wrap gap-2"></div>
+                    <div class="flex gap-2">
+                        <input type="text" id="customTriggerInput" onkeydown="if(event.key==='Enter')addCustomTrigger()" placeholder="Add your own trigger..." class="flex-1 px-4 py-2 rounded-xl bg-white/90 border border-slate-200 text-sm text-slate-800 focus:outline-none focus:border-sky-500">
+                        <button onclick="addCustomTrigger()" class="px-4 py-2 rounded-xl bg-sky-50 border border-sky-200 text-sky-700 text-xs font-semibold hover:bg-sky-100 transition">+ Add</button>
+                    </div>
+
+                    <div class="space-y-2 pt-2">
+                        <label class="text-xs text-slate-500 font-medium uppercase tracking-wider">Custom Context Narrative</label>
+                        <textarea id="path1Narrative" rows="4" class="w-full rounded-2xl bg-white/90 border border-slate-200 p-4 text-sm text-slate-800 focus:outline-none focus:border-sky-500 transition shadow-inner" placeholder="Write briefly what happened without judgment..."></textarea>
+                    </div>
+
+                    <div class="flex justify-end pt-4">
+                        <button onclick="navigateToPath1Step(2)" class="px-8 py-3.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-sm transition shadow-md shadow-sky-500/20 flex items-center gap-2">
+                            <span>Next: Emotional Readiness</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- PATH 1 - STEP 2: EMOTIONAL READINESS EVALUATION -->
+            <section id="path1Step2" class="slide-page space-y-8 py-4">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+                    <div>
+                        <span class="text-xs font-semibold text-sky-600 uppercase tracking-widest">Path 1 • Step 2 of 6</span>
+                        <h2 class="font-serif text-3xl font-bold text-slate-900">Emotional Readiness Evaluation</h2>
+                    </div>
+                    <button onclick="navigateToPath1Step(1)" class="self-start md:self-auto px-4 py-2 rounded-xl glass-card text-xs text-slate-600 hover:text-slate-900 flex items-center gap-2">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Previous Step
+                    </button>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-3xl space-y-6 max-w-2xl mx-auto">
+                    <div class="space-y-2">
+                        <h3 class="text-xl font-bold text-slate-900">Self-Check: Capacity for Inquiry</h3>
+                        <p class="text-sm text-slate-600">Before diving into feelings and needs, check your internal energy bandwidth:</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="glass-card p-4 rounded-2xl bg-white/90 space-y-2">
+                            <span class="text-xs font-bold text-sky-700 uppercase tracking-wider">Body Awareness</span>
+                            <p class="text-sm text-slate-700">Is your nervous system calm enough to observe your feelings without drowning in reaction?</p>
+                            <div id="readiness-body" class="flex flex-wrap gap-2 pt-1"></div>
+                        </div>
+                        <div class="glass-card p-4 rounded-2xl bg-white/90 space-y-2">
+                            <span class="text-xs font-bold text-sky-700 uppercase tracking-wider">Mindful Willingness</span>
+                            <p class="text-sm text-slate-700">Are you willing to set aside blame of external events and look directly at your inner universal needs?</p>
+                            <div id="readiness-willing" class="flex flex-wrap gap-2 pt-1"></div>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs text-slate-500 font-medium uppercase tracking-wider">How does your body feel right now?</label>
+                            <textarea id="path1ReadinessNote" rows="2" class="w-full rounded-xl bg-white/90 border border-slate-200 p-3 text-sm text-slate-800 focus:outline-none focus:border-sky-500" placeholder="E.g., tight chest, warm face, heavy shoulders..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between pt-4">
+                        <button onclick="navigateToPath1Step(1)" class="px-6 py-3 rounded-xl glass-card text-sm text-slate-700 hover:text-slate-900">Back</button>
+                        <button onclick="navigateToPath1Step(3)" class="px-8 py-3.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-sm transition shadow-md shadow-sky-500/20 flex items-center gap-2">
+                            <span>Next: 3-Tier Arhat Wheel</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- PATH 1 - STEP 3: 3-TIER ARHAT WITHIN WHEEL & VEIL INSPECTOR -->
+            <section id="path1Step3" class="slide-page space-y-8 py-4">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+                    <div>
+                        <span class="text-xs font-semibold text-sky-600 uppercase tracking-widest">Path 1 • Step 3 of 6</span>
+                        <h2 class="font-serif text-3xl font-bold text-slate-900">3-Tier Arhat Within Emotion Wheel</h2>
+                    </div>
+                    <button onclick="navigateToPath1Step(2)" class="self-start md:self-auto px-4 py-2 rounded-xl glass-card text-xs text-slate-600 hover:text-slate-900 flex items-center gap-2">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Previous Step
+                    </button>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-3xl space-y-6">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <h3 class="text-lg font-bold text-slate-900">Choose From the 3-Tier Wheel</h3>
+                        <span class="text-xs text-slate-500">Inner ring: core emotion &bull; Middle ring: secondary feeling &bull; Outer ring: specific feeling. Tap any segment to choose it.</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <div class="lg:col-span-7 flex justify-center">
+                            <svg id="arhatWheelSvg" viewBox="0 0 500 500" class="w-full max-w-[460px] h-auto drop-shadow-md select-none"></svg>
+                        </div>
+                        <div class="lg:col-span-5 space-y-4">
+                            <div class="glass-card p-5 rounded-2xl border-sky-200 space-y-3">
+                                <span class="text-xs text-sky-600 uppercase font-semibold">Veil Inspector</span>
+                                <h4 id="selectedEmotionTitle" class="text-2xl font-bold text-slate-900">Select an emotion...</h4>
+                                <p id="selectedEmotionCategory" class="text-xs text-slate-500">Tap any slice or ring on the Arhat wheel</p>
+                                <div id="wheelCategoryFeelings" class="flex flex-wrap gap-1.5 max-h-56 overflow-y-auto"></div>
+                                <div class="pt-2 border-t border-slate-200 space-y-2">
+                                    <span class="text-xs text-indigo-600 font-semibold">Underlying NVC Needs (tap to choose):</span>
+                                    <div id="selectedEmotionNeeds" class="flex flex-wrap gap-1.5 text-xs">
+                                        <span class="text-slate-400 italic">None selected</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between pt-4">
+                        <button onclick="navigateToPath1Step(2)" class="px-6 py-3 rounded-xl glass-card text-sm text-slate-700 hover:text-slate-900">Back</button>
+                        <button onclick="navigateToPath1Step(4)" class="px-8 py-3.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-sm transition shadow-md shadow-sky-500/20 flex items-center gap-2">
+                            <span>Next: 130+ Feelings Explorer</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- PATH 1 - STEP 4: 130+ NUANCED FEELINGS EXPLORER -->
+            <section id="path1Step4" class="slide-page space-y-8 py-4">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+                    <div>
+                        <span class="text-xs font-semibold text-sky-600 uppercase tracking-widest">Path 1 • Step 4 of 6</span>
+                        <h2 class="font-serif text-3xl font-bold text-slate-900">130+ Nuanced Feelings Explorer</h2>
+                    </div>
+                    <button onclick="navigateToPath1Step(3)" class="self-start md:self-auto px-4 py-2 rounded-xl glass-card text-xs text-slate-600 hover:text-slate-900 flex items-center gap-2">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Previous Step
+                    </button>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-3xl space-y-6">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-900">Search & Select Specific Granular Emotion</h3>
+                            <p class="text-xs text-slate-500 mt-1">Search and tap as many as fit from 146 NVC feelings. Tap again to deselect.</p>
+                        </div>
+                        <div class="w-full md:w-72 relative">
+                            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-3"></i>
+                            <input type="text" id="feelingsSearchInput" placeholder="Search 146 NVC feelings..." class="w-full pl-9 pr-4 py-2 rounded-xl bg-white/90 border border-slate-200 text-sm text-slate-800 focus:outline-none focus:border-sky-500">
+                        </div>
+                    </div>
+
+                    <div id="path1SelectedFeelings" class="flex flex-wrap gap-2 min-h-[44px] p-3 rounded-2xl bg-white/80 border border-slate-200"></div>
+                    <div id="feelingsFilterChips" class="flex flex-wrap gap-2 pt-2"></div>
+                    <div id="feelingsGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 max-h-80 overflow-y-auto p-1"></div>
+                    <div class="flex gap-2">
+                        <input type="text" id="customFeelingInput" onkeydown="if(event.key==='Enter')addCustomPath1Feeling()" placeholder="Can't find it? Write your own feeling..." class="flex-1 px-4 py-2 rounded-xl bg-white/90 border border-slate-200 text-sm text-slate-800 focus:outline-none focus:border-sky-500">
+                        <button onclick="addCustomPath1Feeling()" class="px-4 py-2 rounded-xl bg-sky-50 border border-sky-200 text-sky-700 text-xs font-semibold hover:bg-sky-100 transition">+ Add</button>
+                    </div>
+
+                    <div class="flex justify-between pt-4">
+                        <button onclick="navigateToPath1Step(3)" class="px-6 py-3 rounded-xl glass-card text-sm text-slate-700 hover:text-slate-900">Back</button>
+                        <button onclick="navigateToPath1Step(5)" class="px-8 py-3.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-sm transition shadow-md shadow-sky-500/20 flex items-center gap-2">
+                            <span>Next: Reframing Workspace</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- PATH 1 - STEP 5: DYNAMIC STORY REFRAMING WORKSPACE -->
+            <section id="path1Step5" class="slide-page space-y-8 py-4">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+                    <div>
+                        <span class="text-xs font-semibold text-sky-600 uppercase tracking-widest">Path 1 • Step 5 of 6</span>
+                        <h2 class="font-serif text-3xl font-bold text-slate-900">Dynamic Story Reframing Workspace</h2>
+                    </div>
+                    <button onclick="navigateToPath1Step(4)" class="self-start md:self-auto px-4 py-2 rounded-xl glass-card text-xs text-slate-600 hover:text-slate-900 flex items-center gap-2">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Previous Step
+                    </button>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-3xl space-y-6 max-w-3xl mx-auto">
+                    <div class="space-y-1">
+                        <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                            <i data-lucide="box" class="w-5 h-5 text-sky-600"></i>
+                            Reframing Inquiry
+                        </h3>
+                        <blockquote class="italic text-xs text-slate-500 border-l-2 border-sky-500 pl-3">
+                            "Life is a frame within a frame."
+                        </blockquote>
+                    </div>
+
+                    <div class="space-y-4 pt-2">
+                        <div class="space-y-1">
+                            <label class="text-xs text-slate-700 font-medium">1. What is the immediate frame/story my mind built?</label>
+                            <textarea id="reframePrompt1" rows="2" class="w-full rounded-xl bg-white/80 border border-slate-200 p-3 text-sm text-slate-800 focus:outline-none focus:border-sky-500" placeholder="The story I am telling myself is..."></textarea>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs text-slate-700 font-medium">2. What unmet universal NVC need is driving this?</label>
+                            <div id="path1NeedsPicker" class="flex flex-wrap gap-1.5 py-1"></div>
+                            <div class="flex gap-2 pb-1">
+                                <input type="text" id="customNeedInput" onkeydown="if(event.key==='Enter')addCustomNeed()" placeholder="Add your own need..." class="flex-1 px-3 py-1.5 rounded-xl bg-white/90 border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-sky-500">
+                                <button onclick="addCustomNeed()" class="px-3 py-1.5 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-semibold hover:bg-indigo-100 transition">+ Add</button>
+                            </div>
+                            <textarea id="reframePrompt2" rows="2" class="w-full rounded-xl bg-white/80 border border-slate-200 p-3 text-sm text-slate-800 focus:outline-none focus:border-sky-500" placeholder="Describe the need in your own words..."></textarea>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs text-slate-700 font-medium">3. Wider Frame: What compassionate view opens up?</label>
+                            <textarea id="reframePrompt3" rows="2" class="w-full rounded-xl bg-white/80 border border-slate-200 p-3 text-sm text-slate-800 focus:outline-none focus:border-sky-500" placeholder="If I zoom out, I can also see..."></textarea>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs text-slate-700 font-medium">4. What gentle request can I make of myself or someone else?</label>
+                            <textarea id="reframePrompt4" rows="2" class="w-full rounded-xl bg-white/80 border border-slate-200 p-3 text-sm text-slate-800 focus:outline-none focus:border-sky-500" placeholder="E.g., Would I be willing to take a 10-minute walk before replying?"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between pt-4">
+                        <button onclick="navigateToPath1Step(4)" class="px-6 py-3 rounded-xl glass-card text-sm text-slate-700 hover:text-slate-900">Back</button>
+                        <button onclick="navigateToPath1Step(6)" class="px-8 py-3.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-sm transition shadow-md shadow-sky-500/20 flex items-center gap-2">
+                            <span>Next: Reflection Synthesis</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- PATH 1 - STEP 6: REFLECTION SYNTHESIS SUMMARY -->
+            <section id="path1Step6" class="slide-page space-y-8 py-4">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+                    <div>
+                        <span class="text-xs font-semibold text-sky-600 uppercase tracking-widest">Path 1 • Step 6 of 6</span>
+                        <h2 class="font-serif text-3xl font-bold text-slate-900">Holistic Reflection Summary Card</h2>
+                    </div>
+                    <button onclick="navigateToPath1Step(5)" class="self-start md:self-auto px-4 py-2 rounded-xl glass-card text-xs text-slate-600 hover:text-slate-900 flex items-center gap-2">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Previous Step
+                    </button>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-3xl space-y-6 max-w-2xl mx-auto border-indigo-200">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                            <i data-lucide="file-text" class="w-5 h-5 text-indigo-600"></i>
+                            Your Self-Inquiry Synthesis
+                        </h3>
+                        <button onclick="copySynthesis()" class="px-3 py-1.5 rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 text-xs flex items-center gap-1.5 transition">
+                            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Summary
+                        </button>
+                    </div>
+                    <div id="synthesisOutput" class="space-y-4 bg-white p-5 md:p-6 rounded-2xl border border-slate-200 text-xs md:text-sm text-slate-700 min-h-[220px]">
+                        <p class="text-slate-400 italic">Click 'Generate Synthesis Card' below to compile your reflection...</p>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                        <button onclick="compileSynthesis()" class="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-sky-600 to-indigo-600 font-semibold text-white text-sm shadow-md shadow-sky-500/20 hover:opacity-95 transition">
+                            Generate Synthesis Card
+                        </button>
+                        <button onclick="printSynthesis()" class="px-6 py-3.5 rounded-xl glass-card text-xs text-slate-700 hover:text-slate-900 flex items-center justify-center gap-2">
+                            <i data-lucide="printer" class="w-4 h-4"></i> Save as PDF
+                        </button>
+                        <button onclick="navigateToPage('welcomePage')" class="px-6 py-3.5 rounded-xl glass-card text-xs text-slate-700 hover:text-slate-900">
+                            Return to Home
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- PATH 2: MULTI-PAGE LISTENER SUITE -->
+
+            <!-- PATH 2 - STEP 1: CONTEXT DESCRIPTION -->
+            <section id="path2Step1" class="slide-page space-y-8 py-4">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+                    <div>
+                        <span class="text-xs font-semibold text-indigo-600 uppercase tracking-widest">Path 2 • Step 1 of 7</span>
+                        <h2 class="font-serif text-3xl font-bold text-slate-900">Describe the Situation</h2>
+                    </div>
+                    <button onclick="navigateToPage('welcomePage')" class="self-start md:self-auto px-4 py-2 rounded-xl glass-card text-xs text-slate-600 hover:text-slate-900 flex items-center gap-2">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Home
+                    </button>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-3xl space-y-6 max-w-3xl mx-auto">
+                    <div class="space-y-2">
+                        <h3 class="text-xl font-bold text-slate-900">What happened / what is the speaker going through?</h3>
+                        <p class="text-sm text-slate-600">Take a moment to write down the context, background, or core issue the other person is facing before you tune into their emotions.</p>
+                    </div>
+
+                    <textarea id="path2ContextInput" rows="5" class="w-full rounded-2xl bg-white/90 border border-slate-200 p-4 text-sm text-slate-800 focus:outline-none focus:border-indigo-500 shadow-inner" placeholder="E.g., My colleague expressed deep frustration over feeling overlooked during the team meeting..."></textarea>
+
+                    <div class="flex justify-end pt-4">
+                        <button onclick="navigateToPath2Step(2)" class="px-8 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition shadow-md shadow-indigo-500/20 flex items-center gap-2">
+                            <span>Next: Tune Speaker Emotions</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- PATH 2 - STEP 2: SPEAKER EMOTION TUNING -->
+            <section id="path2Step2" class="slide-page space-y-8 py-4">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+                    <div>
+                        <span class="text-xs font-semibold text-indigo-600 uppercase tracking-widest">Path 2 • Step 2 of 7</span>
+                        <h2 class="font-serif text-3xl font-bold text-slate-900">Tune Into Speaker's Emotions</h2>
+                    </div>
+                    <button onclick="navigateToPath2Step(1)" class="self-start md:self-auto px-4 py-2 rounded-xl glass-card text-xs text-slate-600 hover:text-slate-900 flex items-center gap-2">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Previous Step
+                    </button>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-3xl space-y-6">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900">Select Suspected Feelings</h3>
+                            <p class="text-xs text-slate-500 mt-1">Search through 130+ nuanced feelings to articulate what the speaker is experiencing:</p>
+                        </div>
+                        <div class="w-full md:w-72 relative">
+                            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-3"></i>
+                            <input type="text" id="listenerFeelingsSearch" placeholder="Search speaker emotions..." class="w-full pl-9 pr-4 py-2 rounded-xl bg-white/90 border border-slate-200 text-sm text-slate-800 focus:outline-none focus:border-indigo-500">
+                        </div>
+                    </div>
+
+                    <div id="listenerSelectedBadges" class="flex flex-wrap gap-2 min-h-[40px] p-3 rounded-2xl bg-white/80 border border-slate-200">
+                        <span class="text-xs text-slate-400 italic">No emotions selected yet...</span>
+                    </div>
+
+                    <div id="listenerFeelingsGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 max-h-80 overflow-y-auto p-1"></div>
+                    <div class="flex gap-2">
+                        <input type="text" id="customListenerFeelingInput" onkeydown="if(event.key==='Enter')addCustomListenerEmotion()" placeholder="Write a feeling of your own..." class="flex-1 px-4 py-2 rounded-xl bg-white/90 border border-slate-200 text-sm text-slate-800 focus:outline-none focus:border-indigo-500">
+                        <button onclick="addCustomListenerEmotion()" class="px-4 py-2 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-semibold hover:bg-indigo-100 transition">+ Add</button>
+                    </div>
+
+                    <div class="flex justify-between pt-4">
+                        <button onclick="navigateToPath2Step(1)" class="px-6 py-3 rounded-xl glass-card text-sm text-slate-700 hover:text-slate-900">Back</button>
+                        <button onclick="navigateToPath2Step(3)" class="px-8 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition shadow-md shadow-indigo-500/20 flex items-center gap-2">
+                            <span>Next: Choose Bodhisattva Stance</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- PATH 2 - STEP 3: BODHISATTVA STANCE SELECTOR -->
+            <section id="path2Step3" class="slide-page space-y-8 py-4">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+                    <div>
+                        <span class="text-xs font-semibold text-indigo-600 uppercase tracking-widest">Path 2 • Step 3 of 7</span>
+                        <h2 class="font-serif text-3xl font-bold text-slate-900">Bodhisattva Stance Selector</h2>
+                    </div>
+                    <button onclick="navigateToPath2Step(2)" class="self-start md:self-auto px-4 py-2 rounded-xl glass-card text-xs text-slate-600 hover:text-slate-900 flex items-center gap-2">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Previous Step
+                    </button>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-3xl space-y-6">
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900">From which stance do you wish to help and listen?</h3>
+                        <p class="text-xs text-slate-500 mt-1">Select your active grounding stance to customize your professional prompts in Step 5:</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                        <button onclick="selectStance('peace')" id="stance-peace" class="stance-btn glass-card p-5 rounded-2xl text-center border-emerald-200 hover:border-emerald-400 transition">
+                            <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-700 mx-auto flex items-center justify-center mb-3">
+                                <i data-lucide="shield" class="w-6 h-6"></i>
+                            </div>
+                            <span class="font-bold text-sm text-slate-900 block">Peace</span>
+                            <span class="text-[11px] text-slate-500">Equanimity & Calm</span>
+                        </button>
+
+                        <button onclick="selectStance('clarity')" id="stance-clarity" class="stance-btn glass-card p-5 rounded-2xl text-center border-sky-200 hover:border-sky-400 transition">
+                            <div class="w-12 h-12 rounded-full bg-sky-100 text-sky-700 mx-auto flex items-center justify-center mb-3">
+                                <i data-lucide="eye" class="w-6 h-6"></i>
+                            </div>
+                            <span class="font-bold text-sm text-slate-900 block">Clarity</span>
+                            <span class="text-[11px] text-slate-500">Objective Witness</span>
+                        </button>
+
+                        <button onclick="selectStance('compassion')" id="stance-compassion" class="stance-btn glass-card p-5 rounded-2xl text-center border-rose-200 hover:border-rose-400 transition">
+                            <div class="w-12 h-12 rounded-full bg-rose-100 text-rose-700 mx-auto flex items-center justify-center mb-3">
+                                <i data-lucide="heart-handshake" class="w-6 h-6"></i>
+                            </div>
+                            <span class="font-bold text-sm text-slate-900 block">Compassion</span>
+                            <span class="text-[11px] text-slate-500">Shared Humanity</span>
+                        </button>
+
+                        <button onclick="selectStance('lovingkindness')" id="stance-lovingkindness" class="stance-btn glass-card p-5 rounded-2xl text-center border-purple-200 hover:border-purple-400 transition">
+                            <div class="w-12 h-12 rounded-full bg-purple-100 text-purple-700 mx-auto flex items-center justify-center mb-3">
+                                <i data-lucide="sun" class="w-6 h-6"></i>
+                            </div>
+                            <span class="font-bold text-sm text-slate-900 block">Loving-Kindness</span>
+                            <span class="text-[11px] text-slate-500">Warm Resonance</span>
+                        </button>
+                    </div>
+
+                    <div id="stanceGuidanceBox" class="bg-white/90 p-5 rounded-2xl border border-slate-200 space-y-2">
+                        <div class="flex items-center gap-2 text-indigo-600 font-bold text-sm">
+                            <i data-lucide="sparkles" class="w-4 h-4"></i>
+                            <span id="stanceTitle">Stance Guidance</span>
+                        </div>
+                        <p id="stanceDescription" class="text-xs md:text-sm text-slate-600 leading-relaxed">Select a stance above to view tailored non-defensive listening guidance.</p>
+                    </div>
+
+                    <div class="flex justify-between pt-4">
+                        <button onclick="navigateToPath2Step(2)" class="px-6 py-3 rounded-xl glass-card text-sm text-slate-700 hover:text-slate-900">Back</button>
+                        <button onclick="navigateToPath2Step(4)" class="px-8 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition shadow-md shadow-indigo-500/20 flex items-center gap-2">
+                            <span>Next: 4-7-8 Breathing Timer</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- PATH 2 - STEP 4: GUIDED 4-7-8 BREATHING TIMER -->
+            <section id="path2Step4" class="slide-page space-y-8 py-4">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+                    <div>
+                        <span class="text-xs font-semibold text-indigo-600 uppercase tracking-widest">Path 2 • Step 4 of 7</span>
+                        <h2 class="font-serif text-3xl font-bold text-slate-900">Guided 4-7-8 Somatic Breathing</h2>
+                    </div>
+                    <button onclick="navigateToPath2Step(3)" class="self-start md:self-auto px-4 py-2 rounded-xl glass-card text-xs text-slate-600 hover:text-slate-900 flex items-center gap-2">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Previous Step
+                    </button>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-3xl space-y-6 flex flex-col items-center text-center max-w-xl mx-auto">
+                    <div class="space-y-1 w-full text-left">
+                        <h3 class="text-xl font-bold text-slate-900">Somatic Nervous System Reset</h3>
+                        <p class="text-xs text-slate-500">Inhale for 4s • Hold for 7s • Exhale for 8s</p>
+                    </div>
+
+                    <div class="relative w-52 h-52 flex items-center justify-center my-4">
+                        <div id="breatheCircle" class="breathe-circle absolute inset-0 rounded-full bg-gradient-to-tr from-sky-200 to-indigo-200 border border-sky-300 shadow-xl"></div>
+                        <div class="relative z-10 space-y-1">
+                            <span id="breathePhase" class="text-sm font-bold text-sky-700 uppercase tracking-wider block">Ready</span>
+                            <span id="breatheTimer" class="text-4xl font-extrabold text-slate-900">4-7-8</span>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 w-full justify-center">
+                        <button onclick="toggleBreathing()" id="breatheStartBtn" class="px-8 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 font-semibold text-white text-sm shadow-md shadow-indigo-500/20 transition">
+                            Start Breathing
+                        </button>
+                        <button onclick="resetBreathing()" class="px-5 py-3 rounded-xl glass-card text-xs text-slate-700 hover:text-slate-900">
+                            Reset
+                        </button>
+                    </div>
+
+                    <div class="flex justify-between w-full pt-6 border-t border-slate-200">
+                        <button onclick="navigateToPath2Step(3)" class="px-6 py-3 rounded-xl glass-card text-sm text-slate-700 hover:text-slate-900">Back</button>
+                        <button onclick="navigateToPath2Step(5)" class="px-8 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition shadow-md shadow-indigo-500/20 flex items-center gap-2">
+                            <span>Next: 10 Professional Prompts</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- PATH 2 - STEP 5: EXACTLY 10 TAILORED PROFESSIONAL PROMPTS -->
+            <section id="path2Step5" class="slide-page space-y-8 py-4">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+                    <div>
+                        <span class="text-xs font-semibold text-indigo-600 uppercase tracking-widest">Path 2 • Step 5 of 7</span>
+                        <h2 class="font-serif text-3xl font-bold text-slate-900">10 Tailored Professional Prompts</h2>
+                    </div>
+                    <button onclick="navigateToPath2Step(4)" class="self-start md:self-auto px-4 py-2 rounded-xl glass-card text-xs text-slate-600 hover:text-slate-900 flex items-center gap-2">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Previous Step
+                    </button>
+                </div>
+
+                <div class="space-y-8">
+                    <!-- Category 1: 5 Prompts for the Other Person based on Stance -->
+                    <div class="glass-card p-6 md:p-8 rounded-3xl space-y-6 border-t-4 border-t-indigo-500">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-xs text-indigo-600 font-semibold uppercase">Category 1</span>
+                                <h3 id="category1Title" class="text-xl font-bold text-slate-900">5 Prompts for the Other Person (Compassion Stance)</h3>
+                            </div>
+                            <span id="activeStanceBadge" class="px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 text-xs font-semibold">Compassion</span>
+                        </div>
+                        <p class="text-xs text-slate-500">Use these questions to explore and understand the other person from your selected Bodhisattva stance:</p>
+
+                        <div id="stancePromptsList" class="space-y-3">
+                            <!-- Populated via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Category 2: 5 Grounding Prompts for Yourself -->
+                    <div class="glass-card p-6 md:p-8 rounded-3xl space-y-6 border-t-4 border-t-sky-500">
+                        <div>
+                            <span class="text-xs text-sky-600 font-semibold uppercase">Category 2</span>
+                            <h3 class="text-xl font-bold text-slate-900">5 Grounding Prompts for Yourself (Body & Center)</h3>
+                        </div>
+                        <p class="text-xs text-slate-500">Reflect on these somatic and internal questions to anchor your own body before listening:</p>
+
+                        <div class="space-y-3">
+                            <div class="glass-card p-4 rounded-2xl flex items-start gap-3 bg-white/90">
+                                <span class="w-6 h-6 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">1</span>
+                                <p class="text-sm text-slate-700">Where do I feel physical tension in my body right now, and can I consciously soften those muscles?</p>
+                            </div>
+                            <div class="glass-card p-4 rounded-2xl flex items-start gap-3 bg-white/90">
+                                <span class="w-6 h-6 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">2</span>
+                                <p class="text-sm text-slate-700">Am I breathing into my lower belly, anchoring my energy downward into the earth?</p>
+                            </div>
+                            <div class="glass-card p-4 rounded-2xl flex items-start gap-3 bg-white/90">
+                                <span class="w-6 h-6 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">3</span>
+                                <p class="text-sm text-slate-700">Can I feel the support of the ground beneath my feet and the upright dignity of my spine?</p>
+                            </div>
+                            <div class="glass-card p-4 rounded-2xl flex items-start gap-3 bg-white/90">
+                                <span class="w-6 h-6 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">4</span>
+                                <p class="text-sm text-slate-700">Am I noticing any urge in myself to rush, fix, or defend, and can I release it with a breath?</p>
+                            </div>
+                            <div class="glass-card p-4 rounded-2xl flex items-start gap-3 bg-white/90">
+                                <span class="w-6 h-6 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">5</span>
+                                <p class="text-sm text-slate-700">Am I fully inhabiting my own body right now, separate from absorbing the speaker's emotional charge?</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between pt-4">
+                        <button onclick="navigateToPath2Step(4)" class="px-6 py-3 rounded-xl glass-card text-sm text-slate-700 hover:text-slate-900">Back</button>
+                        <button onclick="navigateToPath2Step(6)" class="px-8 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition shadow-md shadow-indigo-500/20 flex items-center gap-2">
+                            <span>Next: Sacred Wisdom Sutras</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- PATH 2 - STEP 6: MULTI-FAITH SACRED WISDOM SUTRAS -->
+            <section id="path2Step6" class="slide-page space-y-8 py-4">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+                    <div>
+                        <span class="text-xs font-semibold text-indigo-600 uppercase tracking-widest">Path 2 • Step 6 of 7</span>
+                        <h2 class="font-serif text-3xl font-bold text-slate-900">Multi-Faith Sacred Wisdom Sutras</h2>
+                    </div>
+                    <button onclick="navigateToPath2Step(5)" class="self-start md:self-auto px-4 py-2 rounded-xl glass-card text-xs text-slate-600 hover:text-slate-900 flex items-center gap-2">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Previous Step
+                    </button>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-3xl space-y-6 max-w-2xl mx-auto text-center">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-bold text-slate-900">Ancient Traditions of Listening</h3>
+                        <div class="flex gap-2">
+                            <button onclick="prevSutra()" class="p-2.5 rounded-xl glass-card text-slate-700 hover:text-slate-900">
+                                <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                            </button>
+                            <button onclick="nextSutra()" class="p-2.5 rounded-xl glass-card text-slate-700 hover:text-slate-900">
+                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/90 p-8 rounded-2xl border border-slate-200 space-y-4 shadow-sm">
+                        <span id="sutraTradition" class="text-xs font-semibold uppercase tracking-widest text-sky-600">Buddhist Tradition</span>
+                        <p id="sutraText" class="text-lg font-serif italic text-slate-800 leading-relaxed">
+                            "Deep listening is the kind of listening that can help relieve the suffering of another person."
+                        </p>
+                        <span id="sutraSource" class="text-xs font-medium text-slate-500 block">— Thich Nhat Hanh</span>
+                    </div>
+
+                    <div class="flex justify-between pt-6 border-t border-slate-200 w-full">
+                        <button onclick="navigateToPath2Step(5)" class="px-6 py-3 rounded-xl glass-card text-sm text-slate-700 hover:text-slate-900">Back</button>
+                        <button onclick="navigateToPath2Step(7)" class="px-8 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition shadow-md shadow-indigo-500/20 flex items-center gap-2">
+                            <span>Next: Ocean Conclusion</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- PATH 2 - STEP 7: OCEAN SURFING CONCLUSION -->
+            <section id="path2Step7" class="slide-page space-y-8 py-4">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+                    <div>
+                        <span class="text-xs font-semibold text-teal-600 uppercase tracking-widest">Path 2 • Step 7 of 7</span>
+                        <h2 class="font-serif text-3xl font-bold text-slate-900">Preparation Complete</h2>
+                    </div>
+                    <button onclick="navigateToPath2Step(6)" class="self-start md:self-auto px-4 py-2 rounded-xl glass-card text-xs text-slate-600 hover:text-slate-900 flex items-center gap-2">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Previous Step
+                    </button>
+                </div>
+
+                <div class="glass-card p-8 md:p-12 rounded-3xl space-y-8 max-w-2xl mx-auto text-center">
+                    <div class="w-20 h-20 rounded-3xl bg-gradient-to-tr from-teal-500 to-sky-600 text-white mx-auto flex items-center justify-center shadow-lg shadow-teal-500/30">
+                        <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M2 12c5-5 7-5 10 0s5 5 10 0" />
+                            <path d="M2 17c5-5 7-5 10 0s5 5 10 0" />
+                        </svg>
+                    </div>
+
+                    <div class="space-y-3">
+                        <h3 class="font-serif text-2xl font-bold text-slate-900">You Are Grounded & Centered</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Your nervous system is settled, your Bodhisattva stance is chosen, and your heart is open. Step forward into the conversation with absolute presence.
+                        </p>
+                    </div>
+
+                    <!-- Celebratory Ocean Button -->
+                    <div class="pt-2">
+                        <button onclick="triggerOceanCelebration()" class="group relative px-8 py-5 rounded-2xl bg-gradient-to-r from-teal-500 via-sky-600 to-indigo-600 text-white font-bold text-base md:text-lg shadow-xl shadow-teal-500/25 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3 mx-auto">
+                            <span>Finished prep for listening now dive into the ocean! 🏄‍♂️</span>
+                        </button>
+                        <div id="celebrationEmojis" class="flex justify-center gap-4 text-2xl mt-4 min-h-[40px] opacity-0 transition-opacity duration-500">
+                            🌊 🏄‍♂️ 🐬 ✨ 🪷 💙
+                        </div>
+                    </div>
+
+                    <div class="flex justify-start pt-6 border-t border-slate-200">
+                        <button onclick="navigateToPath2Step(6)" class="px-6 py-3 rounded-xl glass-card text-sm text-slate-700 hover:text-slate-900">Back</button>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="z-10 border-t border-slate-200/80 glass-panel py-5 px-8 text-center">
+        <p class="text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-400">Designed by</p>
+        <p class="font-serif text-sm font-semibold uppercase tracking-[0.22em] text-slate-700 mt-1">Saipriya Vallabi</p>
+        <p class="text-[11px] text-slate-400 mt-1.5 font-medium">Kairos · An emotional regulation &amp; mindful listening sanctuary</p>
+    </footer>
+
+    <!-- MODAL: QR CODE SHARE -->
+    <div id="qrModal" class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="glass-card p-6 rounded-3xl max-w-sm w-full space-y-6 text-center border-slate-200 shadow-2xl">
+            <div class="flex justify-between items-center">
+                <h3 class="font-bold text-lg text-slate-900">Share Kairos</h3>
+                <button onclick="closeModal('qrModal')" class="text-slate-400 hover:text-slate-700">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div id="qrcode" class="bg-white p-4 rounded-2xl inline-block mx-auto shadow-md"></div>
+            <p class="text-xs text-slate-500">Scan to open Kairos Emotional Regulation Sanctuary</p>
+        </div>
+    </div>
+
+    <!-- MODAL: RAAGA MUSIC LIBRARY -->
+    <div id="musicModal" class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-md hidden flex items-center justify-center p-4" onclick="if(event.target===this)closeModal('musicModal')">
+        <div class="glass-card p-5 md:p-6 rounded-3xl max-w-2xl w-full max-h-[90vh] flex flex-col gap-4 border-slate-200 shadow-2xl">
+            <div class="flex justify-between items-start gap-3">
+                <div>
+                    <h3 class="font-serif font-bold text-lg text-slate-900 flex items-center gap-2">
+                        <i data-lucide="music" class="w-4 h-4 text-sky-600"></i> Raaga Music Library
+                    </h3>
+                    <p class="text-xs text-slate-500">Real concert recordings of soothing Indian raagas by legendary masters</p>
+                </div>
+                <button onclick="closeModal('musicModal')" class="text-slate-400 hover:text-slate-700">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Now Playing -->
+            <div class="rounded-2xl bg-gradient-to-r from-sky-50 to-indigo-50 border border-sky-200 p-4 space-y-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-sky-500 to-indigo-600 text-white flex items-center justify-center shrink-0 shadow-md">
+                        <i data-lucide="disc-3" class="w-5 h-5"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div id="nowPlayingTitle" class="text-sm font-bold text-slate-900 truncate">Choose a recording below</div>
+                        <div id="nowPlayingArtist" class="text-xs text-slate-600 truncate">50 real performances by Indian classical masters</div>
+                    </div>
+                    <a id="nowPlayingSource" href="#" target="_blank" rel="noopener" class="hidden text-[11px] text-sky-700 hover:underline shrink-0">Source</a>
+                </div>
+                <div class="flex items-center gap-2">
+                    <input id="raagaSeek" type="range" min="0" max="1000" value="0" class="flex-1 accent-sky-600" aria-label="Seek">
+                    <span id="raagaTime" class="text-[11px] text-slate-500 w-24 text-right tabular-nums">0:00 / 0:00</span>
+                </div>
+                <div class="flex items-center justify-between gap-3">
+                    <button id="raagaShuffleBtn" onclick="toggleRaagaShuffle()" title="Shuffle" class="p-2 rounded-lg text-slate-500 hover:text-sky-600 transition">
+                        <i data-lucide="shuffle" class="w-4 h-4"></i>
+                    </button>
+                    <div class="flex items-center gap-2">
+                        <button onclick="prevRaagaTrack()" title="Previous" class="p-2.5 rounded-xl glass-card text-slate-700 hover:text-sky-600">
+                            <i data-lucide="skip-back" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="toggleRaagaPlayback()" title="Play / Pause" class="w-12 h-12 rounded-full bg-sky-600 hover:bg-sky-500 text-white flex items-center justify-center shadow-md shadow-sky-500/30 transition">
+                            <span id="raagaPlayIcon"><i data-lucide="play" class="w-5 h-5"></i></span>
+                            <span id="raagaPauseIcon" class="hidden"><i data-lucide="pause" class="w-5 h-5"></i></span>
+                        </button>
+                        <button onclick="nextRaagaTrack()" title="Next" class="p-2.5 rounded-xl glass-card text-slate-700 hover:text-sky-600">
+                            <i data-lucide="skip-forward" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <i data-lucide="volume-2" class="w-4 h-4 text-slate-500"></i>
+                        <input id="raagaVolume" type="range" min="0" max="100" value="70" class="w-20 accent-sky-600" aria-label="Volume">
+                    </div>
+                </div>
+                <p id="raagaStatus" class="text-[11px] text-slate-500 min-h-[14px]"></p>
+            </div>
+
+            <!-- Library -->
+            <div class="relative">
+                <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
+                <input type="text" id="raagaSearch" placeholder="Search raag, artist or instrument..." class="w-full pl-9 pr-4 py-2 rounded-xl bg-white/90 border border-slate-200 text-sm text-slate-800 focus:outline-none focus:border-sky-500">
+            </div>
+            <div id="raagaFilters" class="flex flex-wrap gap-1.5"></div>
+            <div id="raagaList" class="flex-1 overflow-y-auto space-y-1 min-h-[160px] pr-1"></div>
+
+            <p class="text-[10px] text-slate-400 leading-relaxed">
+                Recordings courtesy of the National Cultural Audiovisual Archives (IGNCA, Ministry of Culture, Government of India), streamed from the
+                <a href="https://archive.org/details/IndiaCulture" target="_blank" rel="noopener" class="underline hover:text-slate-600">Internet Archive</a>
+                under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener" class="underline hover:text-slate-600">CC BY-NC 4.0</a>. Some recordings begin with a short spoken introduction.
+            </p>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // -------------------------------------------------------------
+        // DAOIST WISDOM & INTERESTING FACTS DATABASE FOR BANNER & TRANSITION
+        // -------------------------------------------------------------
+        const daoistWisdomCatalog = [
+            "Nature does not hurry, yet everything is accomplished. — Lao Tzu",
+            "Daoist Fact: 'Wu Wei' literally means 'effortless action' or non-forcing.",
+            "When you are content to be simply yourself and don't compare or compete, everybody will respect you. — Lao Tzu",
+            "Daoist Fact: The Yin-Yang symbol is known as the Taijitu, signifying harmonious duality.",
+            "To the mind that is still, the whole universe surrenders. — Chuang Tzu",
+            "Daoist Fact: Daoism emphasizes aligning with the Natural Way (Dao) rather than rigid social dogma.",
+            "Flowing water never stales; the door hinge never gets worm-eaten because it exercises.",
+            "Daoist Fact: The Dao De Jing, written by Lao Tzu, is one of the most translated texts in human history.",
+            "Be like water: soft, yielding, yet capable of dissolving the hardest stone.",
+            "Daoist Fact: In Daoist alchemy, the body has three energetic centers called Dantian (elixir fields).",
+            "He who knows that enough is enough will always have enough. — Lao Tzu",
+            "Daoist Fact: Breath cultivation (Qi Gong) has been practiced in China for over 2,500 years."
+        ];
+
+        let currentWisdomIndex = 0;
+
+        function updateDaoistBanner() {
+            const el = document.getElementById('daoistWisdomBannerText');
+            if (el) el.innerText = daoistWisdomCatalog[currentWisdomIndex];
+        }
+
+        function nextDaoistWisdom() {
+            currentWisdomIndex = (currentWisdomIndex + 1) % daoistWisdomCatalog.length;
+            updateDaoistBanner();
+        }
+
+        function prevDaoistWisdom() {
+            currentWisdomIndex = (currentWisdomIndex - 1 + daoistWisdomCatalog.length) % daoistWisdomCatalog.length;
+            updateDaoistBanner();
+        }
+
+        let daoistBannerExpanded = false;
+
+        function toggleDaoistBanner() {
+            daoistBannerExpanded = !daoistBannerExpanded;
+            const el = document.getElementById('daoistWisdomBannerText');
+            el.classList.toggle('truncate', !daoistBannerExpanded);
+            el.classList.toggle('whitespace-normal', daoistBannerExpanded);
+            el.classList.toggle('py-1', daoistBannerExpanded);
+            document.getElementById('bannerExpandBtn').style.transform = daoistBannerExpanded ? 'rotate(180deg)' : '';
+        }
+
+        // Auto-cycle top banner wisdom every 9 seconds
+        setInterval(nextDaoistWisdom, 9000);
+
+        // -------------------------------------------------------------
+        // ANIMATED PAGE TRANSITION WITH ROLLING DICE & YIN YANG
+        // -------------------------------------------------------------
+        function navigateToPage(pageId) {
+            const targetPage = document.getElementById(pageId);
+            if (!targetPage) return;
+
+            const overlay = document.getElementById('pageTransitionOverlay');
+            const funFactText = document.getElementById('transitionFunFact');
+            
+            // Pick a random fun fact for the transition modal
+            const randomFact = daoistWisdomCatalog[Math.floor(Math.random() * daoistWisdomCatalog.length)];
+            if (funFactText) funFactText.innerText = `"${randomFact}"`;
+
+            // Show transition overlay
+            overlay.classList.remove('hidden');
+
+            setTimeout(() => {
+                const pages = document.querySelectorAll('.slide-page');
+                pages.forEach(p => p.classList.remove('active'));
+                targetPage.classList.add('active');
+
+                const homeBtn = document.getElementById('homeNavBtn');
+                if (pageId === 'welcomePage' || pageId === 'introPage') {
+                    homeBtn.classList.add('hidden');
+                } else {
+                    homeBtn.classList.remove('hidden');
+                }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                // Hide overlay after smooth delay
+                overlay.classList.add('hidden');
+            }, 1100);
+        }
+
+        // -------------------------------------------------------------
+        // NVC FEELINGS DATABASE (146 feelings across the 6 Arhat wheel slices)
+        // -------------------------------------------------------------
+        const feelingCategories = [
+            { name: "Joy", color: "#0ea5e9", needs: ["Celebration", "Play", "Creativity", "Growth", "Meaning", "Contribution"],
+              guidance: "Savor this. Name what made it possible, and consider sharing your gratitude with someone.",
+              feelings: ["Happy", "Joyful", "Delighted", "Elated", "Excited", "Enthusiastic", "Cheerful", "Glad", "Grateful", "Hopeful", "Inspired", "Amused", "Playful", "Proud", "Thrilled", "Energized", "Optimistic", "Encouraged", "Exhilarated", "Eager", "Satisfied", "Pleased", "Radiant", "Jubilant"] },
+            { name: "Love", color: "#8b5cf6", needs: ["Connection", "Intimacy", "Belonging", "Acceptance", "Warmth", "Appreciation"],
+              guidance: "Let this warmth be expressed. Tell someone what they mean to you, in words or in action.",
+              feelings: ["Affectionate", "Loving", "Tender", "Warm", "Compassionate", "Caring", "Friendly", "Open-hearted", "Sympathetic", "Appreciative", "Moved", "Touched", "Connected", "Close", "Trusting", "Accepted", "Valued", "Cherished", "Devoted", "Admiring", "Empathetic", "Nurtured", "Safe", "Belonging"] },
+            { name: "Sadness", color: "#3b82f6", needs: ["Comfort", "Support", "Understanding", "Hope", "Mourning", "Companionship"],
+              guidance: "Offer yourself comfort first. Reach out to someone who can simply be with you, without fixing.",
+              feelings: ["Sad", "Lonely", "Heartbroken", "Disappointed", "Discouraged", "Hopeless", "Gloomy", "Melancholy", "Grieving", "Despairing", "Hurt", "Lost", "Empty", "Regretful", "Ashamed", "Guilty", "Dejected", "Forlorn", "Homesick", "Longing", "Wistful", "Helpless", "Depressed", "Weary", "Numb"] },
+            { name: "Anger", color: "#ef4444", needs: ["Respect", "Fairness", "Autonomy", "Consideration", "Honesty", "Being Heard"],
+              guidance: "Your anger points to a need you value. Pause before speaking, then translate it into a clear, doable request.",
+              feelings: ["Angry", "Annoyed", "Irritated", "Frustrated", "Furious", "Resentful", "Bitter", "Enraged", "Indignant", "Exasperated", "Agitated", "Impatient", "Hostile", "Disgusted", "Contemptuous", "Jealous", "Envious", "Offended", "Betrayed", "Cranky", "Grumpy", "Outraged", "Defensive", "Provoked"] },
+            { name: "Fear", color: "#f59e0b", needs: ["Safety", "Security", "Trust", "Predictability", "Reassurance", "Clarity"],
+              guidance: "Ground in your body first. Ask yourself what would help you feel even slightly safer right now.",
+              feelings: ["Afraid", "Anxious", "Scared", "Nervous", "Worried", "Terrified", "Panicked", "Insecure", "Uneasy", "Apprehensive", "Overwhelmed", "Vulnerable", "Suspicious", "Shaky", "Tense", "Stressed", "Restless", "Confused", "Hesitant", "Dreading", "Alarmed", "Jittery", "Embarrassed", "Self-conscious", "Fragile"] },
+            { name: "Peace", color: "#10b981", needs: ["Ease", "Harmony", "Rest", "Balance", "Presence", "Order"],
+              guidance: "Notice what is supporting this ease, so you can find your way back to it on harder days.",
+              feelings: ["Calm", "Peaceful", "Serene", "Relaxed", "Content", "Centered", "Grounded", "Tranquil", "Relieved", "Comfortable", "Mellow", "Quiet", "Still", "Clear-headed", "Balanced", "Fulfilled", "Restful", "Refreshed", "Present", "Spacious", "Equanimous", "Reassured", "At ease", "Mindful"] }
+        ];
+
+        const feelingsData = feelingCategories.flatMap(c => c.feelings.map(name => ({ name, category: c.name, needs: c.needs })));
+        const allNeeds = [...new Set(feelingCategories.flatMap(c => c.needs))];
+
+        function escapeHtml(str) {
+            return String(str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        }
+
+        function chipClass(active, color = 'sky') {
+            return active
+                ? `border-${color}-500 bg-${color}-50 text-${color}-700 font-semibold ring-2 ring-${color}-200`
+                : `border-slate-200 bg-white/80 text-slate-700 hover:border-${color}-400 hover:text-${color}-600`;
+        }
+
+        function toggleInList(list, value) {
+            const idx = list.indexOf(value);
+            if (idx > -1) list.splice(idx, 1);
+            else list.push(value);
+        }
+
+        function addCustomFeeling(name) {
+            if (!feelingsData.some(f => f.name.toLowerCase() === name.toLowerCase())) {
+                feelingsData.push({ name, category: 'Custom', needs: [] });
+            }
+            return feelingsData.find(f => f.name.toLowerCase() === name.toLowerCase()).name;
+        }
+
+        const triggersList = [
+            "Unmet Expectations", "Boundary Violation", "Miscommunication", "Resource Scarcity",
+            "Time Pressure", "Overwhelm / Burnout", "Rejection / Exclusion", "Uncertainty",
+            "Physical Fatigue", "Loss of Autonomy"
+        ];
+
+        // Sutras Database
+        const sutras = [
+            { tradition: "Buddhist Tradition", text: "Deep listening is the kind of listening that can help relieve the suffering of another person.", source: "Thich Nhat Hanh" },
+            { tradition: "Daoist Tradition", text: "He who knows how to listen will reap the harvest of quiet mind.", source: "Lao Tzu" },
+            { tradition: "Christian Tradition", text: "Be quick to listen, slow to speak, and slow to become angry.", source: "James 1:19" },
+            { tradition: "Hindu Tradition", text: "When you listen with whole mind and heart, the listener and speaker become one continuous ocean.", source: "Upanishads" },
+            { tradition: "Islamic Tradition", text: "Speech is silver, but silence with compassionate listening is golden.", source: "Sufi Tradition" }
+        ];
+
+        // Stance Guidance & Dynamic Prompt Database
+        const stanceData = {
+            peace: {
+                title: "Stance of Peace (Equanimity)",
+                desc: "Anchor yourself as an unshakable, quiet harbor. Listen without taking personal offense or reacting to emotional turbulence.",
+                prompts: [
+                    "How can I remain an unshakable harbor amidst their storm?",
+                    "What expectations or personal reactions do I need to release to stay calm?",
+                    "How does my quiet equanimity help steady their nervous system?",
+                    "In what ways can I offer stillness as a refuge?",
+                    "How do I ensure my silence communicates absolute safety?"
+                ]
+            },
+            clarity: {
+                title: "Stance of Clarity (Objective Witness)",
+                desc: "Hold space like a clear mirror. Reflect back feelings and needs without adding judgments, advice, or opinions.",
+                prompts: [
+                    "What is the core factual reality beneath their emotional narrative?",
+                    "What unexpressed boundaries or needs are they attempting to articulate?",
+                    "Where is the confusion or miscommunication in their current frame?",
+                    "How can I reflect their words back with absolute objective neutrality?",
+                    "What single essential truth are they longing to be heard?"
+                ]
+            },
+            compassion: {
+                title: "Stance of Compassion (Shared Humanity)",
+                desc: "Feel with the speaker's heart without drowning in their pain. Acknowledge their suffering with tender reverence.",
+                prompts: [
+                    "What underlying hurt or pain are they carrying right now?",
+                    "How can I acknowledge their shared human struggle without fixing it?",
+                    "What does tenderness look like in this exact moment?",
+                    "In what ways are their tears or frustration valid expressions of care?",
+                    "How can I hold space so they feel completely met in their vulnerability?"
+                ]
+            },
+            lovingkindness: {
+                title: "Stance of Loving-Kindness (Warm Presence)",
+                desc: "Radiate gentle warmth and unconditional positive regard. Let the speaker know they are completely safe in your presence.",
+                prompts: [
+                    "How can I radiate unconditional warmth and positive regard right now?",
+                    "What words of inherent worth can I silently or softly offer them?",
+                    "How does my open-hearted presence convey that they are cherished?",
+                    "What beauty or strength can I gently mirror back to their spirit?",
+                    "How can I envelop this dialogue in unconditional benevolence?"
+                ]
+            }
+        };
+
+        // -------------------------------------------------------------
+        // STATE
+        // -------------------------------------------------------------
+        let selectedListenerEmotions = [];
+        let activeStance = 'peace';
+        let currentSutraIndex = 0;
+        let breatheTimerInterval = null;
+
+        // -------------------------------------------------------------
+        // NAVIGATION
+        // -------------------------------------------------------------
+        function navigateToPath1Step(stepNum) {
+            navigateToPage(`path1Step${stepNum}`);
+            if (stepNum === 6) compileSynthesis();
+        }
+
+        function navigateToPath2Step(stepNum) {
+            navigateToPage(`path2Step${stepNum}`);
+            if (stepNum === 5) {
+                renderStancePrompts();
+            }
+        }
+
+        // -------------------------------------------------------------
+        // PATH 1 LOGIC
+        // -------------------------------------------------------------
+        const p1 = { triggers: [], readiness: {}, category: null, feelings: [], needs: [], filter: 'All', query: '' };
+
+        const readinessOptions = {
+            body: ["Yes, I feel calm enough", "Somewhat settled", "Not yet, I need a pause first"],
+            willing: ["Yes, I'm willing", "Partly willing", "Not yet, still holding blame"]
+        };
+
+        // 3-tier Arhat wheel: core slice -> secondary feeling -> specific feelings
+        const arhatTiers = {
+            Joy: { Excited: ["Thrilled", "Eager"], Hopeful: ["Optimistic", "Inspired"], Cheerful: ["Playful", "Amused"] },
+            Love: { Affectionate: ["Tender", "Warm"], Connected: ["Close", "Belonging"], Compassionate: ["Empathetic", "Caring"] },
+            Sadness: { Lonely: ["Forlorn", "Homesick"], Hurt: ["Heartbroken", "Disappointed"], Hopeless: ["Despairing", "Helpless"] },
+            Anger: { Frustrated: ["Irritated", "Exasperated"], Resentful: ["Bitter", "Betrayed"], Furious: ["Enraged", "Outraged"] },
+            Fear: { Anxious: ["Worried", "Nervous"], Overwhelmed: ["Stressed", "Tense"], Insecure: ["Vulnerable", "Self-conscious"] },
+            Peace: { Calm: ["Serene", "Tranquil"], Content: ["Fulfilled", "Comfortable"], Grounded: ["Centered", "Present"] }
+        };
+
+        function initPath1() {
+            renderTriggerTags();
+            renderReadinessOptions();
+            renderArhatWheel();
+            renderFeelingsFilterChips();
+            renderPath1Feelings();
+            renderPath1Needs();
+        }
+
+        function renderTriggerTags() {
+            const all = [...triggersList, ...p1.triggers.filter(t => !triggersList.includes(t))];
+            document.getElementById('triggerTags').innerHTML = all.map(t => `
+                <button data-v="${escapeHtml(t)}" onclick="toggleTrigger(this.dataset.v)"
+                    class="px-3 py-1.5 rounded-xl border text-xs transition ${chipClass(p1.triggers.includes(t))}">${escapeHtml(t)}</button>
+            `).join('');
+        }
+
+        function toggleTrigger(trigger) {
+            toggleInList(p1.triggers, trigger);
+            renderTriggerTags();
+        }
+
+        function addCustomTrigger() {
+            const input = document.getElementById('customTriggerInput');
+            const value = input.value.trim();
+            if (value && !p1.triggers.includes(value)) p1.triggers.push(value);
+            input.value = '';
+            renderTriggerTags();
+        }
+
+        function renderReadinessOptions() {
+            Object.entries(readinessOptions).forEach(([key, opts]) => {
+                document.getElementById(`readiness-${key}`).innerHTML = opts.map(o => `
+                    <button data-k="${key}" data-v="${escapeHtml(o)}" onclick="selectReadiness(this.dataset.k, this.dataset.v)"
+                        class="px-3 py-1.5 rounded-xl border text-xs transition ${chipClass(p1.readiness[key] === o)}">${escapeHtml(o)}</button>
+                `).join('');
+            });
+        }
+
+        function selectReadiness(key, value) {
+            p1.readiness[key] = p1.readiness[key] === value ? null : value;
+            renderReadinessOptions();
+        }
+
+        function wheelSector(cx, r1, r2, a1, a2) {
+            const pt = (r, a) => `${(cx + r * Math.cos(a)).toFixed(2)} ${(cx + r * Math.sin(a)).toFixed(2)}`;
+            const large = a2 - a1 > Math.PI ? 1 : 0;
+            return `M ${pt(r1, a1)} L ${pt(r2, a1)} A ${r2} ${r2} 0 ${large} 1 ${pt(r2, a2)} L ${pt(r1, a2)} A ${r1} ${r1} 0 ${large} 0 ${pt(r1, a1)} Z`;
+        }
+
+        function wheelLabel(cx, r, a, text, size, selected, radial) {
+            const x = cx + r * Math.cos(a), y = cx + r * Math.sin(a);
+            let deg = a * 180 / Math.PI;
+            if (deg > 90 && deg < 270) deg += 180;
+            const rotate = radial ? `transform="rotate(${deg.toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)})"` : '';
+            return `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" ${rotate} text-anchor="middle" dominant-baseline="middle"
+                font-size="${size}" font-weight="${selected ? 800 : 600}" fill="${selected ? '#ffffff' : '#1e293b'}" class="pointer-events-none">${escapeHtml(text)}</text>`;
+        }
+
+        function renderArhatWheel() {
+            const svg = document.getElementById('arhatWheelSvg');
+            const c = 250, r0 = 46, r1 = 118, r2 = 182, r3 = 246;
+            const start = -Math.PI / 2;
+            const slice = (Math.PI * 2) / feelingCategories.length;
+            let html = '';
+
+            feelingCategories.forEach((cat, i) => {
+                const a1 = start + i * slice, a2 = a1 + slice;
+                const catSel = p1.category === cat.name;
+                html += `<path d="${wheelSector(c, r0, r1, a1, a2)}" fill="${cat.color}" class="wheel-seg t1 ${catSel ? 'sel' : ''}"
+                    data-v="${cat.name}" onclick="selectArhatCategory(this.dataset.v)"><title>${cat.name}</title></path>`;
+                html += wheelLabel(c, (r0 + r1) / 2, (a1 + a2) / 2, cat.name, 13, catSel, false);
+
+                const secondaries = Object.entries(arhatTiers[cat.name]);
+                const sub = slice / secondaries.length;
+                secondaries.forEach(([second, thirds], j) => {
+                    const b1 = a1 + j * sub, b2 = b1 + sub;
+                    const sel2 = p1.feelings.includes(second);
+                    html += `<path d="${wheelSector(c, r1, r2, b1, b2)}" fill="${cat.color}" class="wheel-seg t2 ${sel2 ? 'sel' : ''}"
+                        data-v="${second}" onclick="toggleWheelFeeling(this.dataset.v)"><title>${second}</title></path>`;
+                    html += wheelLabel(c, (r1 + r2) / 2, (b1 + b2) / 2, second, 9.5, sel2, true);
+
+                    const leaf = sub / thirds.length;
+                    thirds.forEach((third, k) => {
+                        const d1 = b1 + k * leaf, d2 = d1 + leaf;
+                        const sel3 = p1.feelings.includes(third);
+                        html += `<path d="${wheelSector(c, r2, r3, d1, d2)}" fill="${cat.color}" class="wheel-seg t3 ${sel3 ? 'sel' : ''}"
+                            data-v="${third}" onclick="toggleWheelFeeling(this.dataset.v)"><title>${third}</title></path>`;
+                        html += wheelLabel(c, (r2 + r3) / 2, (d1 + d2) / 2, third, 8.5, sel3, true);
+                    });
+                });
+            });
+
+            html += `<circle cx="${c}" cy="${c}" r="${r0}" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" />`;
+            html += `<text x="${c}" y="${c}" text-anchor="middle" dominant-baseline="middle" fill="#64748b" font-size="12" font-weight="bold">ARHAT</text>`;
+            svg.innerHTML = html;
+        }
+
+        function selectArhatCategory(catName) {
+            p1.category = p1.category === catName ? null : catName;
+            renderArhatWheel();
+            renderWheelInspector();
+        }
+
+        function toggleWheelFeeling(name) {
+            const item = feelingsData.find(f => f.name === name);
+            if (item && !p1.feelings.includes(name)) p1.category = item.category;
+            togglePath1Feeling(name);
+        }
+
+        function renderWheelInspector() {
+            const cat = feelingCategories.find(cc => cc.name === p1.category);
+            const title = document.getElementById('selectedEmotionTitle');
+            const sub = document.getElementById('selectedEmotionCategory');
+            const list = document.getElementById('wheelCategoryFeelings');
+            const needsBox = document.getElementById('selectedEmotionNeeds');
+
+            const picked = p1.feelings.length ? p1.feelings.join(', ') : 'Nothing chosen yet';
+            title.innerText = cat ? cat.name : (p1.feelings.length ? 'Your chosen feelings' : 'Select an emotion...');
+            sub.innerText = cat
+                ? `Chosen: ${picked}. Tap any of the ${cat.feelings.length} ${cat.name} feelings below to add more.`
+                : (p1.feelings.length ? `Chosen: ${picked}` : 'Tap any slice or ring on the Arhat wheel');
+
+            list.innerHTML = cat ? cat.feelings.map(f => `
+                <button data-v="${escapeHtml(f)}" onclick="togglePath1Feeling(this.dataset.v)"
+                    class="px-2.5 py-1 rounded-lg border text-xs transition ${chipClass(p1.feelings.includes(f))}">${escapeHtml(f)}</button>
+            `).join('') : '';
+
+            const needs = cat ? cat.needs : suggestedNeeds();
+            needsBox.innerHTML = needs.length ? needs.map(n => `
+                <button data-v="${escapeHtml(n)}" onclick="togglePath1Need(this.dataset.v)"
+                    class="px-2.5 py-1 rounded-lg border font-medium transition ${chipClass(p1.needs.includes(n), 'indigo')}">${escapeHtml(n)}</button>
+            `).join('') : `<span class="text-slate-400 italic">None selected</span>`;
+        }
+
+        function togglePath1Feeling(name) {
+            toggleInList(p1.feelings, name);
+            renderPath1Feelings();
+        }
+
+        function renderPath1Feelings() {
+            renderArhatWheel();
+            renderWheelInspector();
+            renderFeelingsGrid();
+            const tray = document.getElementById('path1SelectedFeelings');
+            tray.innerHTML = p1.feelings.length ? p1.feelings.map(f => `
+                <button data-v="${escapeHtml(f)}" onclick="togglePath1Feeling(this.dataset.v)" title="Remove"
+                    class="px-3 py-1 rounded-lg bg-sky-50 border border-sky-200 text-sky-700 text-xs font-medium flex items-center gap-1 hover:bg-sky-100">
+                    ${escapeHtml(f)} <span class="text-sky-400">&times;</span>
+                </button>
+            `).join('') : `<span class="text-xs text-slate-400 italic">Your chosen feelings appear here...</span>`;
+        }
+
+        function renderFeelingsFilterChips() {
+            const cats = ["All", ...feelingCategories.map(cc => cc.name)];
+            if (feelingsData.some(f => f.category === 'Custom')) cats.push('Custom');
+            document.getElementById('feelingsFilterChips').innerHTML = cats.map(cc => {
+                const count = cc === 'All' ? feelingsData.length : feelingsData.filter(f => f.category === cc).length;
+                return `<button data-v="${cc}" onclick="filterFeelingsCategory(this.dataset.v)"
+                    class="px-3 py-1 rounded-xl border text-xs transition font-medium ${chipClass(p1.filter === cc)}">${cc} <span class="opacity-60">(${count})</span></button>`;
+            }).join('');
+        }
+
+        function filterFeelingsCategory(cat) {
+            p1.filter = cat;
+            renderFeelingsFilterChips();
+            renderFeelingsGrid();
+        }
+
+        function renderFeelingsGrid() {
+            const q = p1.query;
+            const data = feelingsData.filter(f =>
+                (p1.filter === 'All' || f.category === p1.filter) &&
+                (!q || f.name.toLowerCase().includes(q) || f.category.toLowerCase().includes(q)));
+            document.getElementById('feelingsGrid').innerHTML = data.length ? data.map(f => `
+                <button data-v="${escapeHtml(f.name)}" onclick="togglePath1Feeling(this.dataset.v)" title="${escapeHtml(f.category)}"
+                    class="p-2.5 rounded-xl border text-xs transition text-center font-medium ${chipClass(p1.feelings.includes(f.name))}">${escapeHtml(f.name)}</button>
+            `).join('') : `<p class="col-span-full text-xs text-slate-400 italic p-2">No feelings match. Add it as your own below.</p>`;
+        }
+
+        document.getElementById('feelingsSearchInput')?.addEventListener('input', (e) => {
+            p1.query = e.target.value.trim().toLowerCase();
+            renderFeelingsGrid();
+        });
+
+        function addCustomPath1Feeling() {
+            const input = document.getElementById('customFeelingInput');
+            const value = input.value.trim();
+            if (value) {
+                const name = addCustomFeeling(value);
+                if (!p1.feelings.includes(name)) p1.feelings.push(name);
+                renderFeelingsFilterChips();
+                renderPath1Feelings();
+            }
+            input.value = '';
+        }
+
+        function suggestedNeeds() {
+            return [...new Set(p1.feelings.flatMap(n => feelingsData.find(f => f.name === n)?.needs || []))];
+        }
+
+        function togglePath1Need(need) {
+            toggleInList(p1.needs, need);
+            renderPath1Needs();
+        }
+
+        function addCustomNeed() {
+            const input = document.getElementById('customNeedInput');
+            const value = input.value.trim();
+            if (value && !p1.needs.includes(value)) p1.needs.push(value);
+            input.value = '';
+            renderPath1Needs();
+        }
+
+        function renderPath1Needs() {
+            const all = [...allNeeds, ...p1.needs.filter(n => !allNeeds.includes(n))];
+            document.getElementById('path1NeedsPicker').innerHTML = all.map(n => `
+                <button data-v="${escapeHtml(n)}" onclick="togglePath1Need(this.dataset.v)"
+                    class="px-2.5 py-1 rounded-lg border text-xs transition ${chipClass(p1.needs.includes(n), 'indigo')}">${escapeHtml(n)}</button>
+            `).join('');
+            renderWheelInspector();
+        }
+
+        function joinNatural(items) {
+            if (items.length <= 1) return items.join('');
+            return items.slice(0, -1).join(', ') + ' and ' + items[items.length - 1];
+        }
+
+        function compileSynthesis() {
+            const val = id => document.getElementById(id)?.value.trim() || '';
+            const narrative = val('path1Narrative');
+            const bodyNote = val('path1ReadinessNote');
+            const frames = [val('reframePrompt1'), val('reframePrompt2'), val('reframePrompt3'), val('reframePrompt4')];
+            const needs = p1.needs.length ? p1.needs : suggestedNeeds();
+            const needsLabel = p1.needs.length ? 'Needs I Chose' : 'Suggested Needs (from my feelings)';
+
+            const byCat = {};
+            p1.feelings.forEach(n => {
+                const cat = feelingsData.find(f => f.name === n)?.category || 'Custom';
+                (byCat[cat] = byCat[cat] || []).push(n);
+            });
+            const dominant = Object.keys(byCat).sort((a, b) => byCat[b].length - byCat[a].length)[0] || p1.category;
+            const domCat = feelingCategories.find(cc => cc.name === dominant);
+
+            const chips = (items, color) => items.length
+                ? `<div class="flex flex-wrap gap-1.5">${items.map(i => `<span class="px-2.5 py-1 rounded-lg bg-${color}-50 border border-${color}-200 text-${color}-700 text-xs font-medium">${escapeHtml(i)}</span>`).join('')}</div>`
+                : `<span class="text-slate-400 italic">Not chosen</span>`;
+            const text = t => t ? escapeHtml(t).replace(/\n/g, '<br>') : '<span class="text-slate-400 italic">Left blank</span>';
+            const section = (num, title, body) => `
+                <div class="space-y-2 pt-3 border-t border-slate-100">
+                    <div class="text-[11px] font-bold uppercase tracking-widest text-sky-600">${num}. ${title}</div>
+                    ${body}
+                </div>`;
+
+            const feelingsHtml = p1.feelings.length ? Object.entries(byCat).map(([cat, items]) => {
+                const color = feelingCategories.find(cc => cc.name === cat)?.color || '#64748b';
+                return `<div class="flex flex-wrap items-center gap-1.5"><span class="text-xs font-semibold w-16" style="color:${color}">${cat}</span>
+                    ${items.map(i => `<span class="px-2.5 py-1 rounded-lg text-xs font-medium border" style="border-color:${color}55;background:${color}14;color:#1e293b">${escapeHtml(i)}</span>`).join('')}</div>`;
+            }).join('') : `<span class="text-slate-400 italic">No feelings chosen</span>`;
+
+            const when = p1.triggers.length ? `I experience ${joinNatural(p1.triggers.map(t => t.toLowerCase()))}` : 'this situation arises';
+            const statement = `When ${escapeHtml(when)}, I feel <strong>${escapeHtml(joinNatural(p1.feelings.map(f => f.toLowerCase())) || '…')}</strong> because I need <strong>${escapeHtml(joinNatural(needs.map(n => n.toLowerCase())) || '…')}</strong>.${frames[3] ? ` ${escapeHtml(frames[3])}` : ''}`;
+
+            const notReady = Object.values(p1.readiness).some(v => v && v.startsWith('Not yet'));
+            const nextStep = notReady
+                ? 'Part of you is not yet ready, and that is wise to honor. Take a few slow 4-7-8 breaths or a short walk before acting on anything.'
+                : (domCat ? domCat.guidance : 'Return to the steps whenever you like and keep listening inward.');
+            const wisdom = daoistWisdomCatalog.filter(w => !w.startsWith('Daoist Fact'));
+            const quote = wisdom[Math.floor(Math.random() * wisdom.length)];
+            const date = new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+            document.getElementById('synthesisOutput').innerHTML = `
+                <div class="flex items-center justify-between gap-3">
+                    <div>
+                        <div class="font-serif text-lg font-bold text-slate-900">Kairos Self-Inquiry</div>
+                        <div class="text-[11px] text-slate-500">${date}</div>
+                    </div>
+                    ${domCat ? `<span class="px-3 py-1 rounded-full text-xs font-bold text-white" style="background:${domCat.color}">Core: ${domCat.name}</span>` : ''}
+                </div>
+                ${section(1, 'Observation: What Happened', `${chips(p1.triggers, 'sky')}<p class="leading-relaxed">${text(narrative)}</p>`)}
+                ${section(2, 'Readiness Check', `
+                    <div><span class="font-semibold text-slate-800">Body awareness:</span> ${escapeHtml(p1.readiness.body || 'Not answered')}</div>
+                    <div><span class="font-semibold text-slate-800">Mindful willingness:</span> ${escapeHtml(p1.readiness.willing || 'Not answered')}</div>
+                    <div><span class="font-semibold text-slate-800">In my body:</span> ${text(bodyNote)}</div>`)}
+                ${section(3, 'Feelings Present', `<div class="space-y-1.5">${feelingsHtml}</div>`)}
+                ${section(4, needsLabel, chips(needs, 'indigo'))}
+                ${section(5, 'Reframing Journey', `
+                    <div><span class="font-semibold text-slate-800">The story my mind built:</span> ${text(frames[0])}</div>
+                    <div><span class="font-semibold text-slate-800">The unmet need beneath it:</span> ${text(frames[1])}</div>
+                    <div><span class="font-semibold text-slate-800">The wider, compassionate frame:</span> ${text(frames[2])}</div>
+                    <div><span class="font-semibold text-slate-800">My gentle request:</span> ${text(frames[3])}</div>`)}
+                <div class="p-4 rounded-2xl bg-gradient-to-r from-sky-50 to-indigo-50 border border-sky-200 space-y-1">
+                    <div class="text-[11px] font-bold uppercase tracking-widest text-indigo-600">My NVC Self-Empathy Statement</div>
+                    <p class="text-sm text-slate-800 leading-relaxed">${statement}</p>
+                </div>
+                <div class="space-y-1">
+                    <div class="text-[11px] font-bold uppercase tracking-widest text-emerald-600">Gentle Next Step</div>
+                    <p class="leading-relaxed">${escapeHtml(nextStep)}</p>
+                </div>
+                <p class="font-serif italic text-center text-slate-500 pt-3 border-t border-slate-100">"${escapeHtml(quote)}"</p>
+            `;
+        }
+
+        function copySynthesis() {
+            const text = document.getElementById('synthesisOutput').innerText;
+            const done = () => alert("Reflection synthesis copied to clipboard!");
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(done);
+                return;
+            }
+            const temp = document.createElement('textarea');
+            temp.value = text;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+            done();
+        }
+
+        function printSynthesis() {
+            compileSynthesis();
+            window.print();
+        }
+
+
+        // -------------------------------------------------------------
+        // PATH 2 LOGIC
+        // -------------------------------------------------------------
+        function initPath2() {
+            renderListenerFeelingsGrid();
+            renderListenerBadges();
+            selectStance('peace');
+            updateSutraDisplay();
+        }
+
+        let listenerQuery = '';
+
+        function renderListenerFeelingsGrid() {
+            const q = listenerQuery;
+            const data = feelingsData.filter(f => !q || f.name.toLowerCase().includes(q) || f.category.toLowerCase().includes(q));
+            document.getElementById('listenerFeelingsGrid').innerHTML = data.length ? data.map(f => `
+                <button data-v="${escapeHtml(f.name)}" onclick="toggleListenerEmotion(this.dataset.v)" title="${escapeHtml(f.category)}"
+                    class="p-2.5 rounded-xl border text-xs transition text-center font-medium ${chipClass(selectedListenerEmotions.includes(f.name), 'indigo')}">${escapeHtml(f.name)}</button>
+            `).join('') : `<p class="col-span-full text-xs text-slate-400 italic p-2">No feelings match. Add it as your own below.</p>`;
+        }
+
+        function toggleListenerEmotion(name) {
+            toggleInList(selectedListenerEmotions, name);
+            renderListenerBadges();
+            renderListenerFeelingsGrid();
+        }
+
+        function addCustomListenerEmotion() {
+            const input = document.getElementById('customListenerFeelingInput');
+            const value = input.value.trim();
+            if (value) {
+                const name = addCustomFeeling(value);
+                if (!selectedListenerEmotions.includes(name)) selectedListenerEmotions.push(name);
+                renderListenerBadges();
+                renderListenerFeelingsGrid();
+            }
+            input.value = '';
+        }
+
+        function renderListenerBadges() {
+            const container = document.getElementById('listenerSelectedBadges');
+            if (selectedListenerEmotions.length === 0) {
+                container.innerHTML = `<span class="text-xs text-slate-400 italic">No emotions selected yet...</span>`;
+                return;
+            }
+            container.innerHTML = selectedListenerEmotions.map(e => `
+                <button data-v="${escapeHtml(e)}" onclick="toggleListenerEmotion(this.dataset.v)" title="Remove"
+                    class="px-3 py-1 rounded-lg bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-medium flex items-center gap-1 hover:bg-indigo-100">
+                    ${escapeHtml(e)} <span class="text-indigo-400">&times;</span>
+                </button>
+            `).join('');
+        }
+
+        document.getElementById('listenerFeelingsSearch')?.addEventListener('input', (e) => {
+            listenerQuery = e.target.value.trim().toLowerCase();
+            renderListenerFeelingsGrid();
+        });
+
+        function selectStance(stanceKey) {
+            activeStance = stanceKey;
+            document.querySelectorAll('.stance-btn').forEach(btn => btn.classList.remove('border-indigo-500', 'bg-indigo-50', 'ring-2', 'ring-indigo-300'));
+            const btn = document.getElementById(`stance-${stanceKey}`);
+            if (btn) btn.classList.add('border-indigo-500', 'bg-indigo-50', 'ring-2', 'ring-indigo-300');
+
+            const info = stanceData[stanceKey];
+            if (info) {
+                document.getElementById('stanceTitle').innerText = info.title;
+                document.getElementById('stanceDescription').innerText = info.desc;
+            }
+        }
+
+        function renderStancePrompts() {
+            const info = stanceData[activeStance];
+            document.getElementById('category1Title').innerText = `5 Prompts for the Other Person (${info.title.split(' ')[2]} Stance)`;
+            document.getElementById('activeStanceBadge').innerText = info.title.split(' ')[2];
+            
+            const listContainer = document.getElementById('stancePromptsList');
+            listContainer.innerHTML = info.prompts.map((p, idx) => `
+                <div class="glass-card p-4 rounded-2xl flex items-start gap-3 bg-white/90">
+                    <span class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">${idx+1}</span>
+                    <p class="text-sm text-slate-700">${p}</p>
+                </div>
+            `).join('');
+        }
+
+        // 4-7-8 Breathing
+        function toggleBreathing() {
+            const circle = document.getElementById('breatheCircle');
+            const btn = document.getElementById('breatheStartBtn');
+            const phase = document.getElementById('breathePhase');
+            const timer = document.getElementById('breatheTimer');
+
+            if (breatheTimerInterval) {
+                resetBreathing();
+                return;
+            }
+
+            circle.classList.add('active');
+            btn.innerText = "Stop Breathing";
+
+            let step = 0; // 0: Inhale (4s), 1: Hold (7s), 2: Exhale (8s)
+            let secondsLeft = 4;
+
+            phase.innerText = "Inhale...";
+            timer.innerText = secondsLeft;
+
+            breatheTimerInterval = setInterval(() => {
+                secondsLeft--;
+                if (secondsLeft <= 0) {
+                    step = (step + 1) % 3;
+                    if (step === 0) {
+                        secondsLeft = 4;
+                        phase.innerText = "Inhale...";
+                    } else if (step === 1) {
+                        secondsLeft = 7;
+                        phase.innerText = "Hold...";
+                    } else if (step === 2) {
+                        secondsLeft = 8;
+                        phase.innerText = "Exhale...";
+                    }
+                }
+                timer.innerText = secondsLeft;
+            }, 1000);
+        }
+
+        function resetBreathing() {
+            clearInterval(breatheTimerInterval);
+            breatheTimerInterval = null;
+            const circle = document.getElementById('breatheCircle');
+            const btn = document.getElementById('breatheStartBtn');
+            const phase = document.getElementById('breathePhase');
+            const timer = document.getElementById('breatheTimer');
+
+            circle.classList.remove('active');
+            btn.innerText = "Start Breathing";
+            phase.innerText = "Ready";
+            timer.innerText = "4-7-8";
+        }
+
+        // Sutras Rotator
+        function updateSutraDisplay() {
+            const s = sutras[currentSutraIndex];
+            document.getElementById('sutraTradition').innerText = s.tradition;
+            document.getElementById('sutraText').innerText = `"${s.text}"`;
+            document.getElementById('sutraSource').innerText = `— ${s.source}`;
+        }
+
+        function nextSutra() {
+            currentSutraIndex = (currentSutraIndex + 1) % sutras.length;
+            updateSutraDisplay();
+        }
+
+        function prevSutra() {
+            currentSutraIndex = (currentSutraIndex - 1 + sutras.length) % sutras.length;
+            updateSutraDisplay();
+        }
+
+        function triggerOceanCelebration() {
+            const emojis = document.getElementById('celebrationEmojis');
+            emojis.style.opacity = '1';
+        }
+
+        // -------------------------------------------------------------
+        // MODALS
+        // -------------------------------------------------------------
+        function openModal(modalId) {
+            document.getElementById(modalId)?.classList.remove('hidden');
+            if (modalId === 'qrModal') {
+                const qrContainer = document.getElementById("qrcode");
+                qrContainer.innerHTML = "";
+                new QRCode(qrContainer, {
+                    text: window.location.href,
+                    width: 160,
+                    height: 160,
+                    colorDark : "#0f172a",
+                    colorLight : "#ffffff"
+                });
+            }
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId)?.classList.add('hidden');
+        }
+
+        // -------------------------------------------------------------
+        // RAAGA MUSIC LIBRARY: 50 REAL RECORDINGS BY INDIAN MASTERS
+        // Source: National Cultural Audiovisual Archives (IGNCA, Ministry of Culture,
+        // Government of India), hosted on the Internet Archive under CC BY-NC 4.0.
+        // -------------------------------------------------------------
+        const raagaTracks = [
+            { c: "Flute", t: "Raga Bhairavi (Part 1)", a: "Pandit Hariprasad Chaurasia", id: "SPK-53-AC", f: "SPK-53-AC_SIDE_A.mp3", d: 1246 },
+            { c: "Flute", t: "Raga Bhairavi (Part 2)", a: "Pandit Hariprasad Chaurasia", id: "SPK-53-AC", f: "SPK-53-AC_SIDE_B.mp3", d: 1827 },
+            { c: "Flute", t: "Bansuri Recital", a: "Pandit Hariprasad Chaurasia", id: "SPK-52-AC", f: "SPK-52-AC_SIDE_A.mp3", d: 1870 },
+            { c: "Flute", t: "Bansuri Recital (Side A)", a: "Pandit Pannalal Ghosh", id: "SPK-51-AC", f: "SPK-51-AC_SIDE_A.mp3", d: 2856 },
+            { c: "Flute", t: "Bansuri Recital (Side B)", a: "Pandit Pannalal Ghosh", id: "SPK-51-AC", f: "SPK-51-AC_SIDE_B.mp3", d: 2846 },
+            { c: "Flute", t: "Bansuri Recital", a: "Pandit Raghunath Seth", id: "IGRMS-A_466-AC", f: "IGRMS-A_466-AC_SIDE_A.mp3", d: 2838 },
+            { c: "Flute", t: "Raga Abhogi & Raga Kalawati", a: "Pandit Vijaya Raghav Rao", id: "IGRMS-A_689-AC", f: "IGRMS-A_689-AC_SIDE_A.mp3", d: 2837 },
+            { c: "Flute", t: "Bansuri Recital", a: "Pandit Devendra Murdeshwar", id: "IGRMS-A_561-AC", f: "IGRMS-A_561-AC_SIDE_A.mp3", d: 2848 },
+            { c: "Flute", t: "Raga Madhuvanti on Flute & Surbahar", a: "Pandit Nitin Amin & Pandit Rabindra Narayan Goswami", id: "SKSS-V228-AC", f: "SKSS-V228-AC_SIDE_A.mp3", d: 2581 },
+            { c: "Santoor", t: "Raga Kaunsi Kanhra", a: "Pandit Shivkumar Sharma", id: "SPK-54-AC", f: "SPK-54-AC_SIDE_A.mp3", d: 1880 },
+            { c: "Santoor", t: "Raga Mishra Bhairavi", a: "Pandit Shivkumar Sharma", id: "SPK-55-AC", f: "SPK-55-AC_SIDE_A.mp3", d: 2843 },
+            { c: "Santoor", t: "Santoor Recital", a: "Pandit Shivkumar Sharma", id: "IGNCA-PNS_115-AC", f: "IGNCA-PNS_115-AC_SIDE_A.mp3", d: 1914 },
+            { c: "Sitar", t: "Raga Rageshree", a: "Pandit Nikhil Banerjee", id: "IGNCA-PNS_28-AC", f: "IGNCA-PNS_28-AC_SIDE_A.mp3", d: 2845 },
+            { c: "Sitar", t: "Raga Adana & Raga Hem Lalit", a: "Pandit Nikhil Banerjee", id: "SKSS-V227-AC", f: "SKSS-V227-AC_SIDE_A.mp3", d: 2847 },
+            { c: "Sitar", t: "Raga Shuddh Basant & Nat Bhairav", a: "Pandit Nikhil Banerjee", id: "SKSS-K387-AC", f: "SKSS-K387-AC_SIDE_A.mp3", d: 2598 },
+            { c: "Sitar", t: "Raga Puriya Dhanashree", a: "Pandit Nikhil Banerjee", id: "SKSS-K388-AC", f: "SKSS-K388-AC_SIDE_A.mp3", d: 2864 },
+            { c: "Sitar", t: "Ragas Sohni, Megh & Jaunpuri", a: "Pandit Nikhil Banerjee", id: "SKSS-K389-AC", f: "SKSS-K389-AC_SIDE_A.mp3", d: 2416 },
+            { c: "Sitar", t: "Raga Desh & Raga Pahari", a: "Ustad Vilayat Khan", id: "SKSS-G347-AC", f: "SKSS-G347-AC_SIDE_A.mp3", d: 1556 },
+            { c: "Sitar", t: "Raga Khamaj & Raga Ahir Bhairav", a: "Ustad Vilayat Khan", id: "SKSS-G347-AC", f: "SKSS-G347-AC_SIDE_B.mp3", d: 1744 },
+            { c: "Sitar", t: "Raga Gawati", a: "Ustad Vilayat Khan", id: "SPK-70-AC", f: "SPK-70-AC_SIDE_A.mp3", d: 1925 },
+            { c: "Sitar", t: "Tilak Kamod, Bhairavi & Yaman", a: "Ustad Vilayat Khan", id: "IGRMS-A_686-AC", f: "IGRMS-A_686-AC_SIDE_A.mp3", d: 2819 },
+            { c: "Sitar", t: "Raga Suha Sughrai (Sitar & Surbahar)", a: "Ustad Vilayat Khan & Ustad Imrat Khan", id: "IGRMS-A_614-AC", f: "IGRMS-A_614-AC_SIDE_A.mp3", d: 2790 },
+            { c: "Sitar", t: "Raga Puriya", a: "Pandit Budhaditya Mukherjee", id: "IGNCA-PNS_25-AC", f: "IGNCA-PNS_25-AC_SIDE_A.mp3", d: 2776 },
+            { c: "Sitar", t: "Raga Malkauns", a: "Pandit Budhaditya Mukherjee", id: "IGNCA-PNS_25-AC", f: "IGNCA-PNS_25-AC_SIDE_B.mp3", d: 2787 },
+            { c: "Sitar", t: "Raga Kafi", a: "Ustad Ilyas Khan", id: "SNA-19-ACD", f: "SNA-19-ACD_TRACK_2.mp3", d: 945 },
+            { c: "Sitar", t: "Raga Chhayanat", a: "Ustad Ilyas Khan", id: "SNA-19-ACD", f: "SNA-19-ACD_TRACK_1.mp3", d: 2615 },
+            { c: "Sitar", t: "Sitar Recital", a: "Pandit Nikhil Banerjee", id: "IGRMS-A_682-AC", f: "IGRMS-A_682-AC_SIDE_A.mp3", d: 931 },
+            { c: "Sarod", t: "Raga Darbari Kanhra", a: "Ustad Ali Akbar Khan", id: "SPK-58-AC", f: "SPK-58-AC_SIDE_A.mp3", d: 1845 },
+            { c: "Sarod", t: "Raga Ahir Bhairav (Sarod & Sitar)", a: "Ustad Ali Akbar Khan & Pandit Nikhil Banerjee", id: "IGRMS-A_563-AC", f: "IGRMS-A_563-AC_SIDE_A.mp3", d: 2657 },
+            { c: "Sarod", t: "Raga Bhairavi & Simhendra Madhyam", a: "Ustad Amjad Ali Khan", id: "SPK-64-AC", f: "SPK-64-AC_SIDE_A.mp3", d: 1916 },
+            { c: "Sarod", t: "Raga Bageshree", a: "Pandit Radhika Mohan Moitra", id: "SNA-17-ACD", f: "SNA-17-ACD_TRACK_1.mp3", d: 1949 },
+            { c: "Sarod", t: "Raga Des", a: "Pandit Radhika Mohan Moitra", id: "SNA-17-ACD", f: "SNA-17-ACD_TRACK_2.mp3", d: 1568 },
+            { c: "Sarod", t: "Ragas Desh, Kaunsi & Chandra Malhar", a: "Ustad Allauddin Khan & Ustad Hafiz Ali Khan", id: "SKSS-G345-AC", f: "SKSS-G345-AC_SIDE_A.mp3", d: 2210 },
+            { c: "Sarod", t: "Sarod Recital", a: "Vidushi Sharan Rani", id: "IGRMS-A_318-AC", f: "IGRMS-A_318-AC_SIDE_A.mp3", d: 2614 },
+            { c: "Veena", t: "Raga Purvi (Mohan Veena)", a: "Pandit Vishwa Mohan Bhatt", id: "IGRMS-A_671-AC", f: "IGRMS-A_671-AC_SIDE_A.mp3", d: 2861 },
+            { c: "Veena", t: "Lori Dhun & Raga Darbari Kanhara", a: "Pandit Vishwa Mohan Bhatt", id: "IGRMS-A_672-AC", f: "IGRMS-A_672-AC_SIDE_A.mp3", d: 2872 },
+            { c: "Veena", t: "Raga Madhukali (Vichitra Veena)", a: "Dr. Lalmani Mishra", id: "IGNCA-PNS_41-AC", f: "IGNCA-PNS_41-AC_SIDE_A.mp3", d: 993 },
+            { c: "Shehnai", t: "Raga Poorvi", a: "Ustad Bismillah Khan", id: "SNA-20-ACD", f: "SNA-20-ACD_TRACK_1.mp3", d: 2828 },
+            { c: "Shehnai", t: "Benarasi Dhun", a: "Ustad Bismillah Khan", id: "SNA-20-ACD", f: "SNA-20-ACD_TRACK_2.mp3", d: 720 },
+            { c: "Shehnai", t: "Dhun", a: "Ustad Bismillah Khan", id: "SNA-1-ACD", f: "SNA-1-ACD_TRACK_1.mp3", d: 2052 },
+            { c: "Shehnai", t: "Poorvi", a: "Ustad Bismillah Khan", id: "SNA-1-ACD", f: "SNA-1-ACD_TRACK_2.mp3", d: 565 },
+            { c: "Shehnai", t: "Raga Pilu (Shehnai & Violin)", a: "Ustad Bismillah Khan & Pandit V. G. Jog", id: "SPK-66-AC", f: "SPK-66-AC_SIDE_A.mp3", d: 1759 },
+            { c: "Strings", t: "Raga Desh (Violin)", a: "Dr. N. Rajam", id: "IGNCA-PNS_14-AC", f: "IGNCA-PNS_14-AC_SIDE_A.mp3", d: 2831 },
+            { c: "Strings", t: "Raga Bhairavi (Violin)", a: "Dr. N. Rajam", id: "IGNCA-PNS_45-AC", f: "IGNCA-PNS_45-AC_SIDE_A.mp3", d: 1883 },
+            { c: "Strings", t: "Raga Desi Todi (Violin)", a: "Pandit Vishnu Govind Jog", id: "SKSS-V229-AC", f: "SKSS-V229-AC_SIDE_A.mp3", d: 1182 },
+            { c: "Strings", t: "Sarangi Recital", a: "Pandit Santosh Kumar Mishra", id: "IGNCA-PNS_111-AC", f: "IGNCA-PNS_111-AC_SIDE_A.mp3", d: 2843 },
+            { c: "Vocal", t: "Dhrupad Recital", a: "Gundecha Brothers", id: "IGRMS-DA_16-DAT", f: "IGRMS-DA_16-DAT.mp3", d: 3797 },
+            { c: "Vocal", t: "Dhrupad in Raga Patdeep", a: "Prof. Ritwik Sanyal", id: "SKSS-M411-AC", f: "SKSS-M411-AC_SIDE_A.mp3", d: 2876 },
+            { c: "Vocal", t: "Ragas Lalit, Bhatiyar & Bibhas", a: "Pandit Bhimsen Joshi & Vidushi Kishori Amonkar", id: "SKSS-L130-AC", f: "SKSS-L130-AC_SIDE_A.mp3", d: 1113 },
+            { c: "Vocal", t: "Raga Bhupali", a: "Pandit Vidyadhar Vyas", id: "SPK-46-AC", f: "SPK-46-AC_SIDE_A.mp3", d: 1908 }
+        ];
+
+        const raagaCategories = ["All", "Flute", "Santoor", "Sitar", "Sarod", "Veena", "Shehnai", "Strings", "Vocal"];
+        const raagaAudio = new Audio();
+        raagaAudio.preload = 'none';
+        const player = { index: -1, filter: 'All', query: '', shuffle: false };
+
+        const trackItemUrl = t => `https://archive.org/details/dni.ncaa.${t.id}`;
+        const trackFileUrl = t => `https://archive.org/download/dni.ncaa.${t.id}/${t.f}`;
+
+        function formatTime(sec) {
+            if (!isFinite(sec)) return '0:00';
+            sec = Math.floor(sec);
+            const h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s = sec % 60;
+            return (h ? `${h}:${String(m).padStart(2, '0')}` : `${m}`) + `:${String(s).padStart(2, '0')}`;
+        }
+
+        function openMusicPanel() {
+            renderRaagaFilters();
+            renderRaagaList();
+            renderNowPlaying();
+            openModal('musicModal');
+        }
+
+        function renderRaagaFilters() {
+            document.getElementById('raagaFilters').innerHTML = raagaCategories.map(c => {
+                const count = c === 'All' ? raagaTracks.length : raagaTracks.filter(t => t.c === c).length;
+                const label = c === 'Strings' ? 'Violin & Sarangi' : (c === 'Vocal' ? 'Vocal & Dhrupad' : c);
+                return `<button data-v="${c}" onclick="filterRaaga(this.dataset.v)"
+                    class="px-3 py-1 rounded-xl border text-xs transition font-medium ${chipClass(player.filter === c)}">${label} <span class="opacity-60">(${count})</span></button>`;
+            }).join('');
+        }
+
+        function filterRaaga(cat) {
+            player.filter = cat;
+            renderRaagaFilters();
+            renderRaagaList();
+        }
+
+        function visibleRaagaTracks() {
+            const q = player.query;
+            return raagaTracks.map((t, i) => ({ ...t, i })).filter(t =>
+                (player.filter === 'All' || t.c === player.filter) &&
+                (!q || `${t.t} ${t.a} ${t.c}`.toLowerCase().includes(q)));
+        }
+
+        function renderRaagaList() {
+            const list = visibleRaagaTracks();
+            document.getElementById('raagaList').innerHTML = list.length ? list.map(t => {
+                const active = t.i === player.index;
+                return `<button onclick="playRaagaTrack(${t.i})" class="w-full text-left px-3 py-2.5 rounded-xl border flex items-center gap-3 transition ${active ? 'border-sky-400 bg-sky-50' : 'border-transparent hover:bg-slate-50'}">
+                    <span class="w-7 h-7 shrink-0 rounded-lg flex items-center justify-center text-[11px] font-bold ${active ? 'bg-sky-600 text-white' : 'bg-slate-100 text-slate-500'}">${active && !raagaAudio.paused ? '&#9835;' : t.i + 1}</span>
+                    <span class="flex-1 min-w-0">
+                        <span class="block text-sm font-semibold text-slate-800 truncate">${escapeHtml(t.t)}</span>
+                        <span class="block text-xs text-slate-500 truncate">${escapeHtml(t.a)} &bull; ${escapeHtml(t.c === 'Strings' ? 'Violin & Sarangi' : t.c)}</span>
+                    </span>
+                    <span class="text-[11px] text-slate-400 shrink-0">${formatTime(t.d)}</span>
+                </button>`;
+            }).join('') : `<p class="text-xs text-slate-400 italic p-3">No recordings match your search.</p>`;
+        }
+
+        document.getElementById('raagaSearch')?.addEventListener('input', (e) => {
+            player.query = e.target.value.trim().toLowerCase();
+            renderRaagaList();
+        });
+
+        function renderNowPlaying() {
+            const t = raagaTracks[player.index];
+            document.getElementById('nowPlayingTitle').innerText = t ? t.t : 'Choose a recording below';
+            document.getElementById('nowPlayingArtist').innerText = t ? t.a : '50 real performances by Indian classical masters';
+            const src = document.getElementById('nowPlayingSource');
+            src.classList.toggle('hidden', !t);
+            if (t) src.href = trackItemUrl(t);
+            document.getElementById('raagaPlayIcon').classList.toggle('hidden', !raagaAudio.paused);
+            document.getElementById('raagaPauseIcon').classList.toggle('hidden', raagaAudio.paused);
+            document.getElementById('raagaShuffleBtn').classList.toggle('text-sky-600', player.shuffle);
+            document.getElementById('raagaShuffleBtn').classList.toggle('bg-sky-50', player.shuffle);
+            setMusicButtonState(!raagaAudio.paused);
+        }
+
+        function playRaagaTrack(i) {
+            if (i === player.index && raagaAudio.src) {
+                toggleRaagaPlayback();
+                return;
+            }
+            player.index = i;
+            document.getElementById('raagaStatus').innerText = 'Loading recording...';
+            raagaAudio.src = trackFileUrl(raagaTracks[i]);
+            raagaAudio.play().catch(() => {});
+            renderNowPlaying();
+            renderRaagaList();
+        }
+
+        function toggleRaagaPlayback() {
+            if (player.index < 0) {
+                playRaagaTrack(0);
+                return;
+            }
+            if (raagaAudio.paused) raagaAudio.play().catch(() => {});
+            else raagaAudio.pause();
+        }
+
+        function nextRaagaTrack() {
+            const list = visibleRaagaTracks().map(t => t.i);
+            const pool = list.length ? list : raagaTracks.map((_, i) => i);
+            if (player.shuffle) {
+                playRaagaTrack(pool[Math.floor(Math.random() * pool.length)]);
+                return;
+            }
+            const pos = pool.indexOf(player.index);
+            playRaagaTrack(pool[(pos + 1) % pool.length]);
+        }
+
+        function prevRaagaTrack() {
+            if (raagaAudio.currentTime > 5) {
+                raagaAudio.currentTime = 0;
+                return;
+            }
+            const list = visibleRaagaTracks().map(t => t.i);
+            const pool = list.length ? list : raagaTracks.map((_, i) => i);
+            const pos = pool.indexOf(player.index);
+            playRaagaTrack(pool[(pos - 1 + pool.length) % pool.length]);
+        }
+
+        function toggleRaagaShuffle() {
+            player.shuffle = !player.shuffle;
+            renderNowPlaying();
+        }
+
+        function setMusicButtonState(playing) {
+            document.getElementById('musicIconPlay').classList.toggle('hidden', playing);
+            document.getElementById('musicIconPause').classList.toggle('hidden', !playing);
+            document.getElementById('musicLabel').innerText = playing ? 'Now Playing' : 'Raaga Music';
+            document.getElementById('musicToggleBtn').classList.toggle('music-playing', playing);
+        }
+
+        raagaAudio.addEventListener('play', () => { renderNowPlaying(); renderRaagaList(); });
+        raagaAudio.addEventListener('pause', () => { renderNowPlaying(); renderRaagaList(); });
+        raagaAudio.addEventListener('playing', () => { document.getElementById('raagaStatus').innerText = ''; });
+        raagaAudio.addEventListener('waiting', () => { document.getElementById('raagaStatus').innerText = 'Buffering...'; });
+        raagaAudio.addEventListener('ended', nextRaagaTrack);
+        raagaAudio.addEventListener('error', () => {
+            if (player.index >= 0) document.getElementById('raagaStatus').innerText = 'This recording could not be loaded. Please try another.';
+        });
+        raagaAudio.addEventListener('timeupdate', () => {
+            const seek = document.getElementById('raagaSeek');
+            const dur = raagaAudio.duration || raagaTracks[player.index]?.d || 0;
+            if (!seek.matches(':active')) seek.value = dur ? (raagaAudio.currentTime / dur) * 1000 : 0;
+            document.getElementById('raagaTime').innerText = `${formatTime(raagaAudio.currentTime)} / ${formatTime(dur)}`;
+        });
+        document.getElementById('raagaSeek')?.addEventListener('input', (e) => {
+            const dur = raagaAudio.duration || raagaTracks[player.index]?.d || 0;
+            if (dur) raagaAudio.currentTime = (e.target.value / 1000) * dur;
+        });
+        document.getElementById('raagaVolume')?.addEventListener('input', (e) => {
+            raagaAudio.volume = e.target.value / 100;
+        });
+        raagaAudio.volume = 0.7;
+
+        // -------------------------------------------------------------
+        // INITIALIZATION
+        // -------------------------------------------------------------
+        window.onload = function() {
+            lucide.createIcons();
+            initPath1();
+            initPath2();
+        };
+    </script>
+</body>
+</html>
