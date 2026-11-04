@@ -150,7 +150,7 @@
         .btn-sanctuary:hover { background-position: 90% 50%; transform: translateY(-2px); }
         .numeral-chip { font-variant-numeric: tabular-nums; }
 
-        /* Light-Theme Glassmorphism Styles */
+        /* Light glass panels and cards */
         .glass-panel {
             background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(16px);
@@ -201,7 +201,7 @@
             transform: translateX(0);
         }
 
-        /* Taoist Yin Yang Ambient Rotation */
+        /* Slow yin-yang spin in the background */
         @keyframes subtleRotate {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
@@ -211,7 +211,7 @@
             animation: subtleRotate 45s linear infinite;
         }
 
-        /* Rolling Blue Dice Animation */
+        /* Rolling dice animation */
         @keyframes diceRoll {
             0% { transform: rotate(0deg) scale(0.8); }
             50% { transform: rotate(180deg) scale(1.15); }
@@ -311,7 +311,7 @@
         </svg>
     </div>
 
-    <!-- PAGE TRANSITION OVERLAY MODAL -->
+    <!-- Page transition overlay -->
     <div id="pageTransitionOverlay" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-md hidden flex flex-col items-center justify-center p-6 text-center transition-opacity duration-300">
         <div class="glass-card p-8 rounded-3xl max-w-md w-full border-sky-300 shadow-2xl flex flex-col items-center space-y-5">
             <div class="relative w-24 h-24 flex items-center justify-center">
@@ -381,7 +381,7 @@
             </div>
         </div>
 
-        <!-- TOP BANNER: UNLIMITED DAOIST WISDOM & INTERESTING FACTS -->
+        <!-- Top banner: rotating Daoist wisdom -->
         <div class="bg-gradient-to-r from-sky-500/10 via-indigo-500/10 to-sky-500/10 border border-sky-200/80 rounded-xl px-4 py-1.5 flex items-center justify-between gap-3 text-xs text-slate-700 shadow-inner">
             <div class="flex items-center gap-2 shrink-0">
                 <svg class="w-4 h-4 text-sky-600 yin-yang-bg" viewBox="0 0 100 100" fill="currentColor">
@@ -415,7 +415,7 @@
     <main class="flex-1 z-10 max-w-7xl w-full mx-auto px-4 md:px-8 py-6 relative">
         <div class="slide-container">
 
-            <!-- PAGE -1: INTRODUCTION — THE ASPIRATION OF THIS SPACE -->
+            <!-- Introduction page -->
             <section id="introPage" class="slide-page active flex flex-col items-center text-center space-y-10 md:space-y-12 py-8 md:py-14">
                 <div class="inline-flex items-center gap-2.5 px-5 py-2 rounded-full glass-card text-sky-700 text-[11px] md:text-xs font-semibold shadow-sm">
                     <i data-lucide="sunrise" class="w-4 h-4 text-sky-500"></i>
@@ -670,7 +670,7 @@
             </section>
 
 
-            <!-- PATH 1 - STEP 3: 3-TIER ARHAT WITHIN WHEEL & VEIL INSPECTOR -->
+            <!-- Path 1, step 3: emotion wheel -->
             <section id="path1Step3" class="slide-page space-y-8 py-4">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
                     <div>
@@ -762,7 +762,7 @@
             </section>
 
 
-            <!-- PATH 1 - STEP 5: DYNAMIC STORY REFRAMING WORKSPACE -->
+            <!-- Path 1, step 5: reframing workspace -->
             <section id="path1Step5" class="slide-page space-y-8 py-4">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
                     <div>
@@ -1054,7 +1054,7 @@
             </section>
 
 
-            <!-- PATH 2 - STEP 5: EXACTLY 10 TAILORED PROFESSIONAL PROMPTS -->
+            <!-- Path 2, step 5: listening prompts -->
             <section id="path2Step5" class="slide-page space-y-8 py-4">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
                     <div>
@@ -1126,7 +1126,7 @@
             </section>
 
 
-            <!-- PATH 2 - STEP 6: MULTI-FAITH SACRED WISDOM SUTRAS -->
+            <!-- Path 2, step 6: wisdom sutras -->
             <section id="path2Step6" class="slide-page space-y-8 py-4">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
                     <div>
@@ -1360,7 +1360,7 @@
         setInterval(nextDaoistWisdom, 9000);
 
         // -------------------------------------------------------------
-        // ANIMATED PAGE TRANSITION WITH ROLLING DICE & YIN YANG
+        // Page transition animation
         // -------------------------------------------------------------
         function navigateToPage(pageId) {
             const targetPage = document.getElementById(pageId);
@@ -1395,7 +1395,7 @@
         }
 
         // -------------------------------------------------------------
-        // NVC FEELINGS DATABASE (146 feelings across the 6 Arhat wheel slices)
+        // NVC feelings list, grouped by wheel slice
         // -------------------------------------------------------------
         const feelingCategories = [
             { name: "Joy", color: "#0ea5e9", needs: ["Celebration", "Play", "Creativity", "Growth", "Meaning", "Contribution"],
@@ -1459,7 +1459,7 @@
             { tradition: "Islamic Tradition", text: "Speech is silver, but silence with compassionate listening is golden.", source: "Sufi Tradition" }
         ];
 
-        // Stance Guidance & Dynamic Prompt Database
+        // Stance guidance and prompts
         const stanceData = {
             peace: {
                 title: "Stance of Peace (Equanimity)",
@@ -2060,7 +2060,7 @@
         }
 
         // -------------------------------------------------------------
-        // RAAGA MUSIC LIBRARY: 50 REAL RECORDINGS BY INDIAN MASTERS
+        // Raaga music library
         // Source: National Cultural Audiovisual Archives (IGNCA, Ministry of Culture,
         // Government of India), hosted on the Internet Archive under CC BY-NC 4.0.
         // -------------------------------------------------------------
