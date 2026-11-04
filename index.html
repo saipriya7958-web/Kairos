@@ -2286,7 +2286,7 @@
 <script data-goatcounter="https://kairos-app.goatcounter.com/count"
             async src="//gc.zgo.at/count.js"></script>
 <script>(function(){/* Aggregate, anonymous GoatCounter event tracking for Kairos path/step and Raaga Music choices only. No names, emails, feelings, triggers, needs, or reflection text are sent. */function kairosEvent(name){try{if(window.goatcounter&&typeof window.goatcounter.count==='function'){window.goatcounter.count({path:name,event:true});}}catch(e){}}function kairosPageEvent(pageId){if(!pageId)return;var m=pageId.match(/^path([12])Step(\d+)$/);if(m){kairosEvent('kairos-path-'+m[1]+'-step-'+m[2]);return;}if(pageId==='introPage'){kairosEvent('kairos-intro');return;}if(pageId==='welcomePage'){kairosEvent('kairos-welcome');return;}kairosEvent('kairos-'+pageId);}if(typeof navigateToPage==='function'){var origNavigate=navigateToPage;navigateToPage=function(pageId){var r=origNavigate.apply(this,arguments);kairosPageEvent(pageId);return r;};}if(typeof openMusicPanel==='function'){var origMusic=openMusicPanel;openMusicPanel=function(){var r=origMusic.apply(this,arguments);kairosEvent('kairos-raaga-music');return r;};}})();</script></body>
-</html>
+
 
 <!-- Persistent background audio player: audio-only bar, HTML5 audio only, no YouTube. -->
 <script>
@@ -2351,3 +2351,4 @@ window.playRaagaTrack=function(index){var track=raagaTracks[index];if(track&&tra
 }catch(e){}
 })();
 </script>
+</html>
