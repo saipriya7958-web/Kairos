@@ -2287,3 +2287,67 @@
             async src="//gc.zgo.at/count.js"></script>
 <script>(function(){/* Aggregate, anonymous GoatCounter event tracking for Kairos path/step and Raaga Music choices only. No names, emails, feelings, triggers, needs, or reflection text are sent. */function kairosEvent(name){try{if(window.goatcounter&&typeof window.goatcounter.count==='function'){window.goatcounter.count({path:name,event:true});}}catch(e){}}function kairosPageEvent(pageId){if(!pageId)return;var m=pageId.match(/^path([12])Step(\d+)$/);if(m){kairosEvent('kairos-path-'+m[1]+'-step-'+m[2]);return;}if(pageId==='introPage'){kairosEvent('kairos-intro');return;}if(pageId==='welcomePage'){kairosEvent('kairos-welcome');return;}kairosEvent('kairos-'+pageId);}if(typeof navigateToPage==='function'){var origNavigate=navigateToPage;navigateToPage=function(pageId){var r=origNavigate.apply(this,arguments);kairosPageEvent(pageId);return r;};}if(typeof openMusicPanel==='function'){var origMusic=openMusicPanel;openMusicPanel=function(){var r=origMusic.apply(this,arguments);kairosEvent('kairos-raaga-music');return r;};}})();</script></body>
 </html>
+
+<!-- Persistent background audio player: audio-only bar, HTML5 audio only, no YouTube. -->
+<script>
+(function(){
+var st=document.createElement('style');
+st.textContent='#persistent-player-bar{position:fixed;left:12px;right:12px;bottom:12px;z-index:80;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.97);border:1px solid #e2e8f0;border-radius:16px;box-shadow:0 12px 30px rgba(15,23,42,0.18);padding:10px 12px}#persistent-player-bar .pp-info{min-width:0;flex:1}#persistent-player-bar .pp-label{display:block;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#0284c7;font-weight:700}#persistent-player-bar .pp-title{display:block;font-weight:700;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#persistent-player-bar .pp-artist{display:block;font-size:13px;color:#475569;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#pp-play,#pp-close{flex:0 0 auto;width:44px;height:44px;border-radius:9999px;border:1px solid #e2e8f0;font-size:18px;line-height:1;cursor:pointer}#pp-play{background:#0ea5e9;color:#fff}#pp-close{background:#f1f5f9;color:#0f172a}body.persistent-player-visible{padding-bottom:112px !important}.pp-bars{display:flex;align-items:flex-end;gap:2px;height:20px;flex:0 0 auto}.pp-bars span{display:inline-block;width:3px;height:14px;background:#0ea5e9;border-radius:2px}.pp-bars.playing span{animation:ppbounce 0.9s ease-in-out infinite}.pp-bars.playing span:nth-child(2){animation-delay:0.15s}.pp-bars.playing span:nth-child(3){animation-delay:0.3s}@keyframes ppbounce{0%,100%{transform:scaleY(0.4)}50%{transform:scaleY(1)}}@media(max-width:640px){body.persistent-player-visible{padding-bottom:128px !important}#persistent-player-bar{left:8px;right:8px;bottom:8px;padding:9px 10px}}';
+document.head.appendChild(st);
+var bar=document.createElement('div');bar.id='persistent-player-bar';bar.setAttribute('role','region');bar.setAttribute('aria-label','Now playing');bar.style.display='none';bar.innerHTML='<div class="pp-bars" id="pp-bars" aria-hidden="true"><span></span><span></span><span></span></div><div class="pp-info"><span class="pp-label">Now playing</span><span class="pp-title" id="pp-title"></span><span class="pp-artist" id="pp-artist"></span></div><button type="button" id="pp-play" aria-label="Pause">Pause</button><button type="button" id="pp-close" aria-label="Stop and close player">Close</button>';document.body.appendChild(bar);
+var titleEl=document.getElementById('pp-title');var artistEl=document.getElementById('pp-artist');var playBtn=document.getElementById('pp-play');var barsEl=document.getElementById('pp-bars');
+function setBarPlaying(p){playBtn.textContent=p?'Pause':'Play';playBtn.setAttribute('aria-label',p?'Pause':'Play');if(barsEl)barsEl.classList.toggle('playing',p);}
+function showBar(s){bar.style.display=s?'flex':'none';document.body.classList.toggle('persistent-player-visible',s);}
+function hideModalVideo(){var w=document.getElementById('youtubePlayerWrap');if(w)w.classList.add('hidden');var y=document.getElementById('youtubePlayer');if(y)y.src='';}
+var origPlay=window.playRaagaTrack;
+window.playRaagaTrack=function(index){
+var tracks=[];try{tracks=raagaTracks||[];}catch(e){}
+var track=tracks[index];
+var isYT=track&&(track.youtubeVideoId||track.y);
+var hasAudio=track&&(track.fileUrl||track.id||track.f);
+if(isYT&&!hasAudio){
+try{if(typeof raagaAudio!=='undefined'&&raagaAudio)raagaAudio.pause();}catch(e){}
+hideModalVideo();showBar(false);setBarPlaying(false);
+try{if(typeof player!=='undefined'&&player)player.index=index;}catch(e){}
+var t1=document.getElementById('nowPlayingTitle');if(t1)t1.textContent=track.title||track.t||'';
+var a1=document.getElementById('nowPlayingArtist');if(a1)a1.textContent=(track.artist||track.a||'')+((track.raga||track.r)?(' - '+(track.raga||track.r)):'');
+var np=document.getElementById('nowPlaying');if(np)np.classList.remove('hidden');
+var st2=document.getElementById('raagaStatus');if(st2)st2.textContent='No audio file is available for this recording yet.';
+try{if(typeof setMusicButtonState==='function')setMusicButtonState(false);}catch(e){}
+try{if(typeof renderNowPlaying==='function')renderNowPlaying();}catch(e){}
+try{if(typeof renderRaagaList==='function')renderRaagaList();}catch(e){}
+return;
+}
+if(typeof origPlay==='function')origPlay(index);
+hideModalVideo();
+var mt=document.getElementById('nowPlayingTitle');var ma=document.getElementById('nowPlayingArtist');
+titleEl.textContent=mt?mt.textContent:(track?(track.title||track.t||''):'');
+artistEl.textContent=ma?ma.textContent:(track?((track.artist||track.a||'')+((track.raga||track.r)?(' - '+(track.raga||track.r)):' ')):'');
+showBar(true);setBarPlaying(true);
+};
+playBtn.addEventListener('click',function(){try{if(typeof toggleRaagaPlayback==='function')toggleRaagaPlayback();}catch(e){}setTimeout(function(){try{setBarPlaying(typeof raagaAudio!=='undefined'&&!raagaAudio.paused);}catch(e){}},100);});
+document.getElementById('pp-close').addEventListener('click',function(){try{if(typeof raagaAudio!=='undefined'&&raagaAudio){raagaAudio.pause();raagaAudio.currentTime=0;}}catch(e){}hideModalVideo();showBar(false);setBarPlaying(false);try{if(typeof setMusicButtonState==='function')setMusicButtonState(false);}catch(e){}try{if(typeof renderNowPlaying==='function')renderNowPlaying();}catch(e){}});
+try{if(typeof raagaAudio!=='undefined'&&raagaAudio){raagaAudio.addEventListener('play',function(){setBarPlaying(true);});raagaAudio.addEventListener('pause',function(){setBarPlaying(false);});raagaAudio.addEventListener('ended',function(){setBarPlaying(false);});}}catch(e){}
+})();
+</script>
+<!-- Sitar-led collection: soft sitar first, Rishab Sharma opening track, YouTube entries removed (no YouTube in playback). -->
+<script>
+(function(){
+try{
+if(typeof raagaTracks==='undefined'||!raagaTracks.length)return;
+var audio=raagaTracks.filter(function(t){return !(t.y||t.youtubeVideoId);});
+var order={Sitar:0,Veena:1,Sarod:2,Flute:3,Santoor:4,Shehnai:5,'Violin & Sarangi':6,Vocals:7,Instrumental:8};
+function rank(c){var r=order[c];return (r===undefined)?9:r;}
+audio.sort(function(a,b){return rank(a.c)-rank(b.c);});
+var rishab={c:'Sitar for Mental Health',t:'Opening Track \u2014 Shiv Kailash (Live in Mumbai)',a:'Rishab Rikhiram Sharma',d:460,url:'https://archive.org/download/shiv-kailash-live-in-mumbai/Shiv%20Kailash%20%28Live%20in%20Mumbai%29.mp3'};
+raagaTracks.length=0;
+raagaTracks.push(rishab);
+audio.forEach(function(t){raagaTracks.push(t);});
+function catCount(n){if(n==='All')return raagaTracks.length;return raagaTracks.filter(function(t){return t.c===n;}).length;}
+Array.prototype.forEach.call(document.querySelectorAll('*'),function(el){if(el.children.length!==0)return;var m=el.textContent.trim().match(/^(All|Sitar|Flute|Santoor|Sarod|Veena|Shehnai|Violin & Sarangi|Vocals|Instrumental) \(\d+\)$/);if(m)el.textContent=m[1]+' ('+catCount(m[1])+')';});
+var st2=document.createElement('style');st2.textContent='#pp-play,#pp-close{width:auto!important;min-width:44px;padding:0 12px!important;white-space:nowrap!important}';document.head.appendChild(st2);
+var orig2=window.playRaagaTrack;
+window.playRaagaTrack=function(index){var track=raagaTracks[index];if(track&&track.url){try{player.index=index;}catch(e){}try{var w=document.getElementById('youtubePlayerWrap');if(w)w.classList.add('hidden');var y=document.getElementById('youtubePlayer');if(y)y.src='';}catch(e){}try{var t1=document.getElementById('nowPlayingTitle');if(t1)t1.textContent=track.t;var a1=document.getElementById('nowPlayingArtist');if(a1)a1.textContent=track.a;var np=document.getElementById('nowPlaying');if(np)np.classList.remove('hidden');}catch(e){}try{raagaAudio.src=track.url;raagaAudio.play();}catch(e){}try{var bt=document.getElementById('pp-title');if(bt)bt.textContent=track.t;var ba=document.getElementById('pp-artist');if(ba)ba.textContent=track.a;var bar=document.getElementById('persistent-player-bar');if(bar)bar.style.display='flex';document.body.classList.add('persistent-player-visible');var pb=document.getElementById('pp-play');if(pb)pb.textContent='Pause';}catch(e){}try{if(typeof renderNowPlaying==='function')renderNowPlaying();if(typeof renderRaagaList==='function')renderRaagaList();if(typeof setMusicButtonState==='function')setMusicButtonState(true);}catch(e){}return;}if(typeof orig2==='function')orig2(index);};
+}catch(e){}
+})();
+</script>
